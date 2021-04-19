@@ -24,6 +24,10 @@
     @include button-container($green);
   }
 
+  .blue {
+    @include button-container($light-blue);
+  }
+
   .small {
     margin-top: 1.5rem;
     padding: 0.5rem;

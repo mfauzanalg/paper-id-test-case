@@ -1,0 +1,41 @@
+@import '../../utils/variables.scss';
+
+.searcbar-component {
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 30%;
+
+  .search-icon {
+    position: absolute;
+    right: 1rem;
+  }
+
+  input {
+    font-size: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 1.3rem;
+    color: $text-tertiary;
+    background-color: #fff;
+    border: none;
+    border-radius: 100px;
+    box-shadow: 0px 12px 20px $soft-dark-shadow;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }
+
+  ::placeholder,
+  ::-ms-input-placeholder {
+    color: lighten($text-tertiary, 40%);
+  }
+
+  ::-webkit-input-placeholder {
+    color: lighten($text-tertiary, 40%);
+  }
+}

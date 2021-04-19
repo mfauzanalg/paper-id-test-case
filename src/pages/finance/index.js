@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './index.scss';
+
+import Accounts from './accounts';
+
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -27,7 +30,7 @@ const Finance = () => {
           </Tabs>
         </Paper>
         <TabPanel value={value} index={0}>
-          Item One
+          <Accounts />
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two

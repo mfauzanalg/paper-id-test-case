@@ -1,0 +1,21 @@
+@import '../../../utils/variables.scss';
+
+.accounts-page {
+  margin-top: 0.5rem;
+  .title {
+    color: $text-tertiary;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .tools-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .button-container {
+      width: 20%;
+    }
+  }
+}
