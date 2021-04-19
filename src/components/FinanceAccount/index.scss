@@ -3,7 +3,7 @@
 .finance-account-component {
   background-color: $text-primary;
   width: 45%;
-  box-shadow: 0px 12px 20px #8c8c8c29;
+  box-shadow: 0px 12px 20px $soft-dark-shadow;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -20,7 +20,7 @@
     font-size: 1.5rem;
     border-radius: 100%;
     color: $text-primary;
-    background-color: #4199d5;
+    background-color: $light-blue;
     margin-right: 1rem;
   }
 

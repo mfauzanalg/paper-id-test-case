@@ -9,7 +9,7 @@ import checkLogo from '../../assets/svgs/checklogo.svg';
 import accountLogo from '../../assets/svgs/accountlogowhite.svg';
 import lockLogo from '../../assets/svgs/lockwhite.svg';
 
-const Login = () => {
+const login = () => {
   return (
     <div className="login-page-container">
       <div className="login-container">
@@ -41,4 +41,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default login;

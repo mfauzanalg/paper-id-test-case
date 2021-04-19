@@ -1,0 +1,39 @@
+@import '../../utils/variables.scss';
+
+.finance-page {
+  padding: 2rem;
+  background-color: $background-secondary;
+  height: calc(100vh - 4rem);
+
+  .tab-container {
+    .tab {
+      background-color: $background-secondary;
+      border: none;
+      .tab-name {
+        color: $text-tertiary;
+        font-family: 'Lato';
+      }
+    }
+  }
+
+  .MuiPaper-elevation1 {
+    box-shadow: none;
+    border-bottom: 1px solid lighten($text-tertiary, 40%);
+  }
+
+  .PrivateTabIndicator-root-1 {
+    position: absolute;
+    margin-left: 0 auto;
+  }
+
+  .PrivateTabIndicator-colorPrimary-2 {
+    background-color: $light-blue;
+    height: 0.3rem;
+    width: 5rem !important;
+    margin: 0 2.5rem;
+  }
+
+  .MuiTab-root {
+    text-transform: none;
+  }
+}

@@ -2,12 +2,14 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import login from './pages/login';
 import dashboard from './pages/dashboard';
+import finance from './pages/finance';
+
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
-const NavRoute = ({ exact, path, component: Component }) => (
+const NavRoute = ({ path, component: Component }) => (
   <Route
-    exact={exact}
+    exact
     path={path}
     render={(props) => (
       <div className="sidebar">
@@ -27,8 +29,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={login} />
-          <NavRoute exactly component={dashboard} pattern="/dashboard" />
-          <NavRoute exactly component={dashboard} pattern="/finance" />
+          <NavRoute component={dashboard} path="/dashboard" />
+          <NavRoute component={finance} path="/finance" />
         </Switch>
       </Router>
     </div>
