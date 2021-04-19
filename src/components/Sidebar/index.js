@@ -12,11 +12,18 @@ const Sidebar = () => {
   ));
 
   return (
-    <div className="sidebar-component">
-      <div className="sidebar-container">
-        <img className="layer-ornament" src={layerOrnament} alt="paper-logo" />
-        <img className="paper-logo" src={paperLogo} alt="paper-logo" />
-        {menus}
+    <div>
+      <div className="sidebar-fill"></div>
+      <div className="sidebar-component">
+        <div className="sidebar-container">
+          <img
+            className="layer-ornament"
+            src={layerOrnament}
+            alt="paper-logo"
+          />
+          <img className="paper-logo" src={paperLogo} alt="paper-logo" />
+          {menus}
+        </div>
       </div>
     </div>
   );
