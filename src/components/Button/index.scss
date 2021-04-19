@@ -1,0 +1,26 @@
+@import '../../utils/variables.scss';
+
+.button-component {
+  width: 100%;
+
+  @mixin button-container($background-color) {
+    cursor: pointer;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: $text-primary;
+    text-align: center;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 5rem;
+    transition: all 0.3s ease-in-out;
+    background-color: $background-color;
+
+    &:hover {
+      background-color: lighten($background-color, 5%);
+      box-shadow: 0 0 15px 0.3px lighten($background-color, 8%);
+    }
+  }
+
+  .green {
+    @include button-container($button-green);
+  }
+}

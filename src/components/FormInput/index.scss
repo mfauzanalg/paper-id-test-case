@@ -1,0 +1,50 @@
+@import '../../utils/variables.scss';
+
+.form-input-component {
+  width: 100%;
+
+  .form-input-container {
+    margin-bottom: 2rem;
+    label {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-right: 0.75rem;
+        width: 1rem;
+      }
+    }
+    input {
+      font-size: 1rem;
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 0.25rem;
+      padding-left: 0;
+      color: $text-primary;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid $text-secondary;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+      outline: none;
+    }
+
+    ::placeholder,
+    ::-ms-input-placeholder {
+      color: $text-secondary;
+    }
+
+    ::-webkit-input-placeholder {
+      color: $text-secondary;
+    }
+
+    input[type='password']::-ms-reveal,
+    input[type='password']::-ms-clear {
+      display: none;
+    }
+  }
+}
