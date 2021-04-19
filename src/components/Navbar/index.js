@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.scss';
 import user from '../../assets/svgs/users.svg';
 import { CaretDownOutline } from 'react-ionicons';
+import Button from '../Button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,7 @@ const Navbar = () => {
             <div className="user-info">Muhammad Fauzan Al-Ghifari</div>
             <label>Last Login</label>
             <div className="user-info">26 Maret 2000</div>
+            <Button size="small" title="Keluar" color="green" width="100%" />
           </div>
         )}
       </div>

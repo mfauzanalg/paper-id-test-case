@@ -23,4 +23,10 @@
   .green {
     @include button-container($green);
   }
+
+  .small {
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
 }

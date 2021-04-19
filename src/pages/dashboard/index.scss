@@ -2,5 +2,40 @@
 
 .dashboard-page {
   background-color: $background-secondary;
-  height: 1000px;
+  height: calc(100vh - 4rem);
+  padding-left: 2rem;
+
+  .page-title {
+    font-weight: 500;
+    color: $text-tertiary;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+
+    .chart-container {
+      border: 1px solid red;
+      width: 47.5%;
+    }
+
+    .account-container {
+      width: 47.5%;
+
+      .finance-account-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+
+    .submenu-title {
+      color: $text-tertiary;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+  }
 }

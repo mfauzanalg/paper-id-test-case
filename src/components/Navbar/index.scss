@@ -4,7 +4,7 @@
   display: flex;
   justify-content: flex-end;
   background-color: $background-secondary;
-  padding: 2rem;
+  padding: 1rem;
   padding-right: 3rem;
 
   .navbar-container {
@@ -56,6 +56,11 @@
         font-size: 0.9rem;
         margin-top: 0.2rem;
         margin-bottom: 0.5rem;
+      }
+
+      .button {
+        border: 1px solid red;
+        padding: 2rem;
       }
     }
   }

@@ -1,0 +1,39 @@
+@import '../../utils/variables.scss';
+
+.finance-account-component {
+  background-color: $text-primary;
+  width: 45%;
+  box-shadow: 0px 12px 20px #8c8c8c29;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: $text-tertiary;
+  display: flex;
+  align-items: center;
+
+  .left-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border-radius: 100%;
+    color: $text-primary;
+    background-color: #4199d5;
+    margin-right: 1rem;
+  }
+
+  .right-container {
+    font-size: 0.9rem;
+    .name {
+      font-weight: 600;
+    }
+    .status {
+      font-size: 300;
+    }
+    .notes {
+      font-size: 300;
+    }
+  }
+}
