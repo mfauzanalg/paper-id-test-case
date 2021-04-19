@@ -1,0 +1,27 @@
+@import '../../utils/variables.scss';
+
+.sidebar-component {
+  display: flex;
+  height: 100vh;
+  width: 13rem;
+
+  .sidebar-container {
+    width: 100%;
+    background-image: linear-gradient(96deg, #569ad3 0%, #488cc7 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .layer-ornament {
+      width: 100%;
+      position: absolute;
+      top: 0;
+    }
+
+    .paper-logo {
+      margin: 2.5rem 0;
+      width: 8rem;
+    }
+  }
+}
