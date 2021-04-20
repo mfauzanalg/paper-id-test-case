@@ -6,6 +6,12 @@ import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 
 const Accounts = () => {
+  const tableConfig = [
+    { title: 'Account Name', isSearchable: true, isSortable: false },
+    { title: 'Description', isSearchable: false, isSortable: false },
+    { title: 'Account Type', isSearchable: false, isSortable: false },
+  ];
+
   return (
     <div className="accounts-page">
       <div className="title">All Finance Account</div>
@@ -16,7 +22,7 @@ const Accounts = () => {
         </div>
       </div>
       <div className="table-container">
-        <Table />
+        <Table config={tableConfig} data={['example', 'example', 'example']} />
         <Pagination />
       </div>
     </div>

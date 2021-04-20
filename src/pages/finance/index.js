@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './index.scss';
 
 import Accounts from './accounts';
+import Transactions from './transactions';
 
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -33,7 +34,7 @@ const Finance = () => {
           <Accounts />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          <Transactions />
         </TabPanel>
       </div>
     </div>

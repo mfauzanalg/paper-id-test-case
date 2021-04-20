@@ -4,13 +4,20 @@
   width: 100%;
   color: $text-tertiary;
 
+  .clickable {
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      color: $light-blue;
+    }
+  }
+
   table {
     width: 100%;
   }
 
   // Header style
   th {
-    width: 25%;
     background-color: transparent;
 
     div {
