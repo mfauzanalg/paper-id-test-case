@@ -1,0 +1,21 @@
+@import '../../../utils/variables.scss';
+.finance-dialog-content-view {
+  .finance {
+    cursor: default;
+    background-color: #fff;
+
+    label {
+      color: $text-tertiary;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .info {
+      color: $text-tertiary;
+      font-weight: 300;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

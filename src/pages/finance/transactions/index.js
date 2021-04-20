@@ -5,7 +5,9 @@ import Button from '../../../components/Button';
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
-import financeDialog from '../../../components/Dialog/FinanceDialog';
+import DeleteDialog from '../../../components/DeleteDialog';
+import { financeDialog } from '../../../components/Dialog/FinanceDialog';
+import { financeDialogView } from '../../../components/Dialog/FinanceDialog';
 
 const Finances = () => {
   const tableConfig = [
@@ -16,23 +18,25 @@ const Finances = () => {
     { title: 'Amount', isSearchable: false, isSortable: false },
   ];
 
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 
   const onCreateFinance = () => {
-    setIsCreateOpen(true);
+    setIsDialogOpen(true);
   };
-
   const onActionView = () => {
-    setIsCreateOpen(true);
+    setIsViewDialogOpen(true);
   };
   const onActionEdit = () => {
-    setIsCreateOpen(true);
+    setIsDialogOpen(true);
   };
   const onActionDelete = () => {
-    setIsCreateOpen(true);
+    setIsDeleteDialogOpen(true);
   };
 
   const dialogData = financeDialog();
+  const dialogDataView = financeDialogView();
 
   return (
     <div className="transactions-page">
@@ -46,10 +50,17 @@ const Finances = () => {
             onClick={onCreateFinance}
           />
           <Dialog
-            isOpen={isCreateOpen}
-            setIsOpen={setIsCreateOpen}
-            title="Create New Finance"
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
+            title="Create New Account"
             content={dialogData}
+            className="dialog"
+          />
+          <Dialog
+            isOpen={isViewDialogOpen}
+            setIsOpen={setIsViewDialogOpen}
+            title="Viewing"
+            content={dialogDataView}
             className="dialog"
           />
         </div>
@@ -61,6 +72,12 @@ const Finances = () => {
             text: ['example', 'example', 'example', 'example', 'example'],
             action: { onActionView, onActionEdit, onActionDelete },
           }}
+        />
+        <DeleteDialog
+          isOpen={isDeleteDialogOpen}
+          setIsOpen={setIsDeleteDialogOpen}
+          name="Example"
+          className="dialog"
         />
         <Pagination />
       </div>

@@ -1,0 +1,21 @@
+@import '../../../utils/variables.scss';
+.account-dialog-content-view {
+  .account {
+    cursor: default;
+    background-color: #fff;
+
+    label {
+      color: $text-tertiary;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .user-info {
+      color: $text-tertiary;
+      font-weight: 300;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

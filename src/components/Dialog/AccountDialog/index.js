@@ -1,7 +1,8 @@
 import FormInput from '../../FormInput';
 import Button from '../../Button';
+import './index.scss';
 
-const accountDialog = () => {
+export const accountDialog = () => {
   return (
     <div className="account-dialog-content">
       <FormInput
@@ -34,4 +35,17 @@ const accountDialog = () => {
   );
 };
 
-export default accountDialog;
+export const accountDialogView = () => {
+  return (
+    <div className="account-dialog-content-view">
+      <div className="account">
+        <label>User Name</label>
+        <div className="user-info">mfauzanalg</div>
+        <label>Name</label>
+        <div className="user-info">Muhammad Fauzan Al-Ghifari</div>
+        <label>Last Login</label>
+        <div className="user-info">26 Maret 2000</div>
+      </div>
+    </div>
+  );
+};

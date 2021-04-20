@@ -6,7 +6,8 @@ import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
 import DeleteDialog from '../../../components/DeleteDialog';
-import accountDialog from '../../../components/Dialog/AccountDialog';
+import { accountDialog } from '../../../components/Dialog/AccountDialog';
+import { accountDialogView } from '../../../components/Dialog/AccountDialog';
 
 const Accounts = () => {
   const tableConfig = [
@@ -17,12 +18,13 @@ const Accounts = () => {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
 
   const onCreateAccount = () => {
     setIsDialogOpen(true);
   };
   const onActionView = () => {
-    setIsDialogOpen(true);
+    setIsViewDialogOpen(true);
   };
   const onActionEdit = () => {
     setIsDialogOpen(true);
@@ -32,6 +34,7 @@ const Accounts = () => {
   };
 
   const dialogData = accountDialog();
+  const dialogDataView = accountDialogView();
 
   return (
     <div className="accounts-page">
@@ -49,6 +52,13 @@ const Accounts = () => {
             setIsOpen={setIsDialogOpen}
             title="Create New Account"
             content={dialogData}
+            className="dialog"
+          />
+          <Dialog
+            isOpen={isViewDialogOpen}
+            setIsOpen={setIsViewDialogOpen}
+            title="Viewing"
+            content={dialogDataView}
             className="dialog"
           />
         </div>

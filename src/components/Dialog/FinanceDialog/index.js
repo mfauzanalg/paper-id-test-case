@@ -1,8 +1,9 @@
 import FormInput from '../../FormInput';
 import Button from '../../Button';
 import Select from '../../Select';
+import './index.scss';
 
-const financeDialog = () => {
+export const financeDialog = () => {
   return (
     <div className="Finance-dialog-content">
       <FormInput
@@ -41,4 +42,17 @@ const financeDialog = () => {
   );
 };
 
-export default financeDialog;
+export const financeDialogView = () => {
+  return (
+    <div className="finance-dialog-content-view">
+      <div className="finance">
+        <label>User Name</label>
+        <div className="info">mfauzanalg2</div>
+        <label>Name</label>
+        <div className="info">Muhammad Fauzan Al-Ghifari</div>
+        <label>Last Login</label>
+        <div className="info">26 Maret 2000</div>
+      </div>
+    </div>
+  );
+};
