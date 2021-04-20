@@ -10,40 +10,46 @@
 
   // Header style
   th {
-    width: 1fr;
+    width: 25%;
     background-color: transparent;
 
     div {
       display: flex;
       height: 3rem;
       flex-direction: column;
-      // justify-content: flex-start;
       align-items: flex-start;
 
       input {
         margin-top: 0.25rem;
         width: 85%;
         background-color: transparent;
-        border: 1px solid lighten($text-tertiary, 30%);
+        border: 1px solid lighten($text-tertiary, 50%);
         padding: 0.225rem;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus {
+        outline: none;
       }
     }
   }
 
   // Content Style
   //
-  .content {
-    box-shadow: 0px 5px 20px $soft-dark-shadow;
+  .content-table {
+    box-shadow: 0 1px 8px $soft-dark-shadow;
     background-color: #fff;
     transition: all 0.2s ease-in-out;
     td {
-      div {
+      .content {
         padding: 1.25rem 0.5rem;
       }
     }
 
     &:hover {
-      background-color: lighten($light-blue, 30%);
+      background-color: lighten($light-blue, 35%);
       color: darken($light-blue, 12.5%);
     }
   }

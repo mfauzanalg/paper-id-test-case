@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import ActionMenu from '../ActionMenu';
 
 const Table = ({ field }) => {
   return (
@@ -21,32 +22,20 @@ const Table = ({ field }) => {
             <div>Action</div>
           </th>
         </tr>
-        <tr className="content">
+        <tr className="content-table">
           <td>
-            <div>Jill</div>
+            <div className="content">Jill</div>
           </td>
           <td>
-            <div>Good</div>
+            <div className="content">Good</div>
           </td>
           <td>
-            <div>Smith</div>
+            <div className="content">Smith</div>
           </td>
           <td>
-            <div>50</div>
-          </td>
-        </tr>
-        <tr className="content">
-          <td>
-            <div>Eve</div>
-          </td>
-          <td>
-            <div>Excellent</div>
-          </td>
-          <td>
-            <div>Jackson</div>
-          </td>
-          <td>
-            <div>94</div>
+            <div>
+              <ActionMenu />
+            </div>
           </td>
         </tr>
       </table>
