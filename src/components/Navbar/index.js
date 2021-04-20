@@ -40,7 +40,7 @@ const Navbar = () => {
             <div className="user-info">Muhammad Fauzan Al-Ghifari</div>
             <label>Last Login</label>
             <div className="user-info">26 Maret 2000</div>
-            <Button size="small" title="Keluar" color="green" width="100%" />
+            <Button size="small" title="Keluar" color="red" width="100%" />
           </div>
         )}
       </div>

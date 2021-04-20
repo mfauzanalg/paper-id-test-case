@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import SearchBar from '../../../components/SearcBar';
 import Button from '../../../components/Button';
+import Table from '../../../components/Table';
 
 const Accounts = () => {
   return (
@@ -12,6 +13,9 @@ const Accounts = () => {
         <div className="button-container">
           <Button title="Create New Account" color="blue" />
         </div>
+      </div>
+      <div className="table-container">
+        <Table />
       </div>
     </div>
   );

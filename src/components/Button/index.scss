@@ -28,6 +28,10 @@
     @include button-container($light-blue);
   }
 
+  .red {
+    @include button-container($red);
+  }
+
   .small {
     margin-top: 1.5rem;
     padding: 0.5rem;
