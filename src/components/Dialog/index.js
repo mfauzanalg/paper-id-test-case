@@ -24,7 +24,7 @@ const DialogComponent = ({ isOpen, setIsOpen, title, content }) => {
         />
         <div className="title">{title}</div>
         <div className="dialog-content"></div>
-        {content()}
+        {content}
       </div>
     </Dialog>
   );

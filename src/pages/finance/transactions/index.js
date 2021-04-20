@@ -5,8 +5,7 @@ import Button from '../../../components/Button';
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
-import FormInput from '../../../components/FormInput';
-import Select from '../../../components/Select';
+import financeDialog from '../../../components/Dialog/FinanceDialog';
 
 const Finances = () => {
   const tableConfig = [
@@ -19,58 +18,21 @@ const Finances = () => {
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
-  const FinanceDialog = () => {
-    return (
-      <div className="Finance-dialog-content">
-        <FormInput
-          label="Finance Name"
-          placeholder="Inout your finance name"
-          type="text"
-          inputClass="dialog"
-        />
-        <Select
-          label="Finance Account"
-          placeholder="select finance account"
-          type="text"
-          inputClass="dialog"
-        />
-        <FormInput
-          label="Amount"
-          placeholder="Amount"
-          type="text"
-          inputClass="dialog"
-        />
-        <FormInput
-          label="Description"
-          placeholder="Description"
-          type="text"
-          inputClass="dialog"
-        />
-        <div className="button-container">
-          <div className="button">
-            <Button
-              title="Simpan"
-              color="green"
-              addClass="form-button"
-              onClick={onCreateFinance}
-            />
-          </div>
-          <div className="button">
-            <Button
-              title="Batal"
-              color="empty"
-              addClass="form-button"
-              onClick={onCreateFinance}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   const onCreateFinance = () => {
     setIsCreateOpen(true);
   };
+
+  const onActionView = () => {
+    setIsCreateOpen(true);
+  };
+  const onActionEdit = () => {
+    setIsCreateOpen(true);
+  };
+  const onActionDelete = () => {
+    setIsCreateOpen(true);
+  };
+
+  const dialogData = financeDialog();
 
   return (
     <div className="transactions-page">
@@ -87,7 +49,7 @@ const Finances = () => {
             isOpen={isCreateOpen}
             setIsOpen={setIsCreateOpen}
             title="Create New Finance"
-            content={FinanceDialog}
+            content={dialogData}
             className="dialog"
           />
         </div>
@@ -95,7 +57,10 @@ const Finances = () => {
       <div className="table-container">
         <Table
           config={tableConfig}
-          data={['example', 'example', 'example', 'example', 'example']}
+          data={{
+            text: ['example', 'example', 'example', 'example', 'example'],
+            action: { onActionView, onActionEdit, onActionDelete },
+          }}
         />
         <Pagination />
       </div>

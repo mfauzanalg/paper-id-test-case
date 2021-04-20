@@ -5,7 +5,8 @@ import Button from '../../../components/Button';
 import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
-import FormInput from '../../../components/FormInput';
+import DeleteDialog from '../../../components/DeleteDialog';
+import accountDialog from '../../../components/Dialog/AccountDialog';
 
 const Accounts = () => {
   const tableConfig = [
@@ -14,54 +15,23 @@ const Accounts = () => {
     { title: 'Account Type', isSearchable: false, isSortable: false },
   ];
 
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const onCreateAccount = () => {
-    setIsCreateOpen(true);
+    setIsDialogOpen(true);
+  };
+  const onActionView = () => {
+    setIsDialogOpen(true);
+  };
+  const onActionEdit = () => {
+    setIsDialogOpen(true);
+  };
+  const onActionDelete = () => {
+    setIsDeleteDialogOpen(true);
   };
 
-  const accountDialog = () => {
-    return (
-      <div className="account-dialog-content">
-        <FormInput
-          label="Account Name"
-          placeholder="e.g. cash, bank, etc"
-          type="text"
-          inputClass="dialog"
-        />
-        <FormInput
-          label="Type"
-          placeholder="e.g. cash, bank, etc"
-          type="text"
-          inputClass="dialog"
-        />
-        <FormInput
-          label="Description"
-          placeholder="Description"
-          type="text"
-          inputClass="dialog"
-        />
-        <div className="button-container">
-          <div className="button">
-            <Button
-              title="Simpan"
-              color="green"
-              addClass="form-button"
-              onClick={onCreateAccount}
-            />
-          </div>
-          <div className="button">
-            <Button
-              title="Batal"
-              color="empty"
-              addClass="form-button"
-              onClick={onCreateAccount}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const dialogData = accountDialog();
 
   return (
     <div className="accounts-page">
@@ -75,16 +45,28 @@ const Accounts = () => {
             onClick={onCreateAccount}
           />
           <Dialog
-            isOpen={isCreateOpen}
-            setIsOpen={setIsCreateOpen}
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
             title="Create New Account"
-            content={accountDialog}
+            content={dialogData}
             className="dialog"
           />
         </div>
       </div>
       <div className="table-container">
-        <Table config={tableConfig} data={['example', 'example', 'example']} />
+        <Table
+          config={tableConfig}
+          data={{
+            text: ['example', 'example', 'example'],
+            action: { onActionView, onActionEdit, onActionDelete },
+          }}
+        />
+        <DeleteDialog
+          isOpen={isDeleteDialogOpen}
+          setIsOpen={setIsDeleteDialogOpen}
+          name="Example"
+          className="dialog"
+        />
         <Pagination />
       </div>
     </div>

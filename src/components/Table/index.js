@@ -40,7 +40,7 @@ const Table = ({ config, data }) => {
             </th>
           </tr>
           <tr className="content-table">
-            {data.map((item, index) => {
+            {data.text.map((item, index) => {
               return (
                 <td key={index}>
                   <div className="content">{item}</div>
@@ -49,7 +49,7 @@ const Table = ({ config, data }) => {
             })}
             <td>
               <div>
-                <ActionMenu />
+                <ActionMenu action={data.action} />
               </div>
             </td>
           </tr>
