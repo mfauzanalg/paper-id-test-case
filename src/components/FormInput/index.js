@@ -1,7 +1,15 @@
 import React from 'react';
 import './index.scss';
 
-const FormInput = ({ logo, label, placeholder, type, inputClass }) => {
+const FormInput = ({
+  logo,
+  label,
+  placeholder,
+  type,
+  inputClass,
+  value,
+  onChange,
+}) => {
   const containerClass = `form-input-container ${inputClass}`;
   return (
     <div className="form-input-component">
@@ -10,7 +18,12 @@ const FormInput = ({ logo, label, placeholder, type, inputClass }) => {
           {logo && <img src={logo} alt="logo" />}
           {label}
         </label>
-        <input type={type} placeholder={placeholder} />
+        <input
+          value={value}
+          onChange={onChange}
+          type={type}
+          placeholder={placeholder}
+        />
       </div>
     </div>
   );

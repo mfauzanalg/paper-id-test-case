@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 
 import FormInput from '../../components/FormInput';
@@ -13,25 +13,43 @@ import useAxios from '../../hooks/useAxios';
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { response, loading } = useAxios({
+  const [userData, setUserData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const { response, loading, error, fetch } = useAxios({
     method: 'post',
-    url: 'https://development.paper.id:3500/test-case/api/v1/login',
-    data: {
-      username: 'muhammadfauzan11042021',
-      password: 'paper123',
-    },
+    url: '/login',
+    data: userData,
   });
 
   useEffect(() => {
     if (!loading) {
-      console.log(response);
+      if (!error) {
+        console.log(response);
+        enqueueSnackbar('login', {
+          variant: 'success',
+        });
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const onLogin = () => {
-    enqueueSnackbar('login', {
-      variant: 'success',
-    });
+    if (userData.username && userData.password) {
+      fetch();
+    } else {
+      enqueueSnackbar('Please fill all form!', {
+        variant: 'warning',
+      });
+    }
+  };
+
+  const onFormChange = (e, attribut) => {
+    const newUserData = { ...userData };
+    newUserData[attribut] = e.target.value;
+    setUserData(newUserData);
   };
 
   return (
@@ -50,12 +68,16 @@ const Login = () => {
           label="Email"
           placeholder="Masukkan Email Anda"
           type="text"
+          value={userData['username']}
+          onChange={(e) => onFormChange(e, 'username')}
         />
         <FormInput
           logo={lockLogo}
           label="Kata Sandi"
           placeholder="Masukkan Kata Sandi Anda"
           type="password"
+          value={userData['password']}
+          onChange={(e) => onFormChange(e, 'password')}
         />
         <div className="forgot-password">Lupa Kata Sandi?</div>
         <Button title="Masuk" color="green" width="100%" onClick={onLogin} />

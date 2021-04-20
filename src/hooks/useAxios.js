@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 
@@ -10,8 +10,13 @@ const useAxios = (config) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios(config)
+  const axiosInstace = axios.create({
+    baseURL: 'https://development.paper.id:3500/test-case/api/v1',
+  });
+
+  const fetch = () => {
+    setLoading(true);
+    axiosInstace(config)
       .then((res) => {
         setResponse(res.data);
         setLoading(false);
@@ -25,9 +30,9 @@ const useAxios = (config) => {
         }
         setLoading(false);
       });
-  }, []);
+  };
 
-  return { response, error, loading };
+  return { response, error, loading, fetch };
 };
 
 export default useAxios;
