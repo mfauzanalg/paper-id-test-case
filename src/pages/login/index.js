@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 
 import FormInput from '../../components/FormInput';
 import Button from '../../components/Button';
-
 import paperLogo from '../../assets/svgs/paperlogowhite.svg';
 import checkLogo from '../../assets/svgs/checklogo.svg';
 import accountLogo from '../../assets/svgs/accountlogowhite.svg';
 import lockLogo from '../../assets/svgs/lockwhite.svg';
+import { useSnackbar } from 'notistack';
+import useAxios from '../../hooks/useAxios';
 
-const login = () => {
+const Login = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { response, loading } = useAxios({
+    method: 'post',
+    url: 'https://development.paper.id:3500/test-case/api/v1/login',
+    data: {
+      username: 'muhammadfauzan11042021',
+      password: 'paper123',
+    },
+  });
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(response);
+    }
+  }, [loading]);
+
+  const onLogin = () => {
+    enqueueSnackbar('login', {
+      variant: 'success',
+    });
+  };
+
   return (
     <div className="login-page-container">
       <div className="login-container">
@@ -34,11 +58,11 @@ const login = () => {
           type="password"
         />
         <div className="forgot-password">Lupa Kata Sandi?</div>
-        <Button title="Masuk" color="green" width="100%" />
+        <Button title="Masuk" color="green" width="100%" onClick={onLogin} />
       </div>
       <img className="paper-logo" src={paperLogo} alt="paper-logo" />
     </div>
   );
 };
 
-export default login;
+export default Login;
