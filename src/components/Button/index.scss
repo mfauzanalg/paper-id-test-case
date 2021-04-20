@@ -20,6 +20,21 @@
     }
   }
 
+  @mixin empty-button {
+    color: lighten($text-tertiary, 30%);
+    text-align: center;
+    box-shadow: none;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    border: 1.5px solid lighten($text-tertiary, 50%);
+
+    &:hover {
+      color: #fff;
+      background-color: $green;
+      box-shadow: 0 0 15px 0.3px lighten($green, 8%);
+    }
+  }
+
   .green {
     @include button-container($green);
   }
@@ -30,6 +45,16 @@
 
   .red {
     @include button-container($red);
+  }
+
+  .empty {
+    @include button-container(transparent);
+    @include empty-button;
+  }
+
+  .form-button {
+    font-weight: 500;
+    font-size: 0.8rem;
   }
 
   .small {

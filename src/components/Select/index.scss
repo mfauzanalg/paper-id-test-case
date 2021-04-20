@@ -1,0 +1,41 @@
+@import '../../utils/variables.scss';
+
+.select-component {
+  width: 100%;
+
+  .select-container {
+    margin-bottom: 2rem;
+    label {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-right: 0.75rem;
+        width: 1rem;
+      }
+    }
+
+    select {
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 0.25rem;
+      padding-left: 0;
+      color: $text-tertiary;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid lighten($text-tertiary, 50%);
+    }
+
+    option {
+      font-size: 0.8rem;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+      outline: none;
+    }
+  }
+}

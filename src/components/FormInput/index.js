@@ -1,12 +1,13 @@
 import React from 'react';
 import './index.scss';
 
-const FormInput = ({ logo, label, placeholder, type }) => {
+const FormInput = ({ logo, label, placeholder, type, inputClass }) => {
+  const containerClass = `form-input-container ${inputClass}`;
   return (
     <div className="form-input-component">
-      <div className="form-input-container">
+      <div className={containerClass}>
         <label>
-          <img src={logo} alt="logo" />
+          {logo && <img src={logo} alt="logo" />}
           {label}
         </label>
         <input type={type} placeholder={placeholder} />

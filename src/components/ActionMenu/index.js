@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
 import { CaretDownOutline } from 'react-ionicons';
 import { EyeOutline, PencilOutline, TrashOutline } from 'react-ionicons';
 
 const ActionMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const node = useRef();
+  const [isOpenAction, setIsOpenAction] = useState(false);
 
   const handleClickOutside = (e) => {
-    setIsOpen(false);
+    if (node.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click
+    setIsOpenAction(false);
   };
 
   const onClickAction = () => {
-    setIsOpen(!isOpen);
+    setIsOpenAction(!isOpenAction);
   };
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpenAction) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -23,13 +29,13 @@ const ActionMenu = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpenAction]);
 
   return (
-    <div className="action-menu-component" onMouseDown={onClickAction}>
+    <div className="action-menu-component" ref={node} onClick={onClickAction}>
       Action
       <CaretDownOutline color="white" width="0.75rem" className="arrow-down" />
-      {isOpen && (
+      {isOpenAction && (
         <div className="action-container">
           <div className="action-list">
             <div className="action">

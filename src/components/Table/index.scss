@@ -5,10 +5,24 @@
   color: $text-tertiary;
 
   .clickable {
-    transition: all 0.2s ease-in-out;
-    &:hover {
-      cursor: pointer;
-      color: $light-blue;
+    .title {
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+
+      &:hover {
+        cursor: pointer;
+        color: $light-blue;
+      }
+
+      .icon {
+        margin-left: 0.5rem;
+        margin-top: -0.5rem;
+        position: relative;
+        top: 0.4rem;
+      }
     }
   }
 
@@ -19,12 +33,15 @@
   // Header style
   th {
     background-color: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
 
     div {
       display: flex;
       height: 3rem;
       flex-direction: column;
       align-items: flex-start;
+      width: 100%;
 
       input {
         margin-top: 0.25rem;
@@ -49,6 +66,7 @@
     box-shadow: 0 1px 8px $soft-dark-shadow;
     background-color: #fff;
     transition: all 0.2s ease-in-out;
+    font-size: 0.9rem;
     td {
       .content {
         padding: 1.25rem 0.5rem;

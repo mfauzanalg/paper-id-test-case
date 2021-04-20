@@ -47,4 +47,26 @@
       display: none;
     }
   }
+
+  .dialog {
+    label {
+      font-size: 0.8rem;
+    }
+
+    input {
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      color: $text-tertiary;
+      border-bottom: 1px solid lighten($text-tertiary, 50%);
+    }
+
+    ::placeholder,
+    ::-ms-input-placeholder {
+      color: lighten($text-tertiary, 40%);
+    }
+
+    ::-webkit-input-placeholder {
+      color: lighten($text-tertiary, 40%);
+    }
+  }
 }

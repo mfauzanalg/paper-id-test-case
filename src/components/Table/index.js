@@ -1,10 +1,9 @@
 import React from 'react';
 import './index.scss';
 import ActionMenu from '../ActionMenu';
+import { CaretDownOutline } from 'react-ionicons';
 
 const Table = ({ config, data }) => {
-  console.log(config);
-
   return (
     <div className="table-component">
       <table>
@@ -14,7 +13,24 @@ const Table = ({ config, data }) => {
               return (
                 <th key={index}>
                   <div>
-                    {header.title} {header.isSearchable && <input />}
+                    {header.isSortable && (
+                      <div className="clickable">
+                        <span className="title">
+                          {header.title}
+                          <CaretDownOutline
+                            color="black"
+                            width="0.75rem"
+                            className="icon"
+                          />{' '}
+                        </span>
+                        {header.isSearchable && <input />}
+                      </div>
+                    )}
+                    {!header.isSortable && (
+                      <div>
+                        {header.title} {header.isSearchable && <input />}
+                      </div>
+                    )}
                   </div>
                 </th>
               );

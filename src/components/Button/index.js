@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss';
 
-const Button = ({ title, color, size }) => {
-  const classes = `${color} ${size}`;
+const Button = ({ title, color, size, onClick, addClass }) => {
+  const classes = `${color} ${size} ${addClass}`;
   return (
-    <div className="button-component">
+    <div onClick={onClick} className="button-component">
       <div className={classes}>{title}</div>
     </div>
   );

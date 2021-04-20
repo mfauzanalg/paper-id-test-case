@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
 import user from '../../assets/svgs/users.svg';
 import { CaretDownOutline } from 'react-ionicons';
 import Button from '../Button';
 
 const Navbar = () => {
+  const node = useRef();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOutside = (e) => {
+    if (node.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click
     setIsOpen(false);
   };
 
@@ -28,7 +34,11 @@ const Navbar = () => {
 
   return (
     <div className="navbar-component">
-      <div className="navbar-container" onMouseDown={onClickNavbarContainer}>
+      <div
+        className="navbar-container"
+        ref={node}
+        onClick={onClickNavbarContainer}
+      >
         <img className="user-icon" src={user} alt="user-logo" />
         <h5>Muhammad Fauzan Al-Ghifari</h5>
         <CaretDownOutline width="0.75rem" className="arrow-down" />
