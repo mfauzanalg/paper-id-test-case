@@ -4,7 +4,7 @@ import { CaretDownOutline } from 'react-ionicons';
 import { EyeOutline, PencilOutline, TrashOutline } from 'react-ionicons';
 
 const ActionMenu = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOutside = (e) => {
     setIsOpen(false);
@@ -26,7 +26,7 @@ const ActionMenu = () => {
   }, [isOpen]);
 
   return (
-    <div className="action-menu-component" onClick={onClickAction}>
+    <div className="action-menu-component" onMouseDown={onClickAction}>
       Action
       <CaretDownOutline color="white" width="0.75rem" className="arrow-down" />
       {isOpen && (

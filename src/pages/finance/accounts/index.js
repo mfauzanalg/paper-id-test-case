@@ -3,6 +3,7 @@ import './index.scss';
 import SearchBar from '../../../components/SearcBar';
 import Button from '../../../components/Button';
 import Table from '../../../components/Table';
+import Pagination from '../../../components/Pagination';
 
 const Accounts = () => {
   return (
@@ -16,6 +17,7 @@ const Accounts = () => {
       </div>
       <div className="table-container">
         <Table />
+        <Pagination />
       </div>
     </div>
   );

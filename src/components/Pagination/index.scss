@@ -1,0 +1,17 @@
+@import '../../utils/variables.scss';
+
+.pagination-component {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiPagination-ul {
+  .Mui-selected {
+    font-family: 'Lato';
+    background-color: transparent !important;
+    color: $light-blue;
+    font-weight: 600;
+    border-radius: 0 !important;
+    border-bottom: 3px solid $light-blue !important;
+  }
+}
