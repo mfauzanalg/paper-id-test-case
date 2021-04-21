@@ -4,6 +4,7 @@ import './index.scss';
 import App from './App';
 import { SnackbarProvider } from 'notistack';
 import Grow from '@material-ui/core/Grow';
+import { UserProvider } from './context/UserContext';
 
 ReactDOM.render(
   <SnackbarProvider
@@ -16,7 +17,9 @@ ReactDOM.render(
     autoHideDuration={1500}
     preventDuplicate={true}
   >
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </SnackbarProvider>,
   document.getElementById('root')
 );

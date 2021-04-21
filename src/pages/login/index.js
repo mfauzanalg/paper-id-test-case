@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './index.scss';
 
 import FormInput from '../../components/FormInput';
@@ -9,12 +9,16 @@ import accountLogo from '../../assets/svgs/accountlogowhite.svg';
 import lockLogo from '../../assets/svgs/lockwhite.svg';
 import { useSnackbar } from 'notistack';
 import useAxios from '../../hooks/useAxios';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
 
 const Login = () => {
+  const { logIn } = useContext(UserContext);
   const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
 
   const [userData, setUserData] = useState({
-    username: '',
+    username: 'muhammadfauzan11042021',
     password: '',
   });
 
@@ -27,10 +31,11 @@ const Login = () => {
   useEffect(() => {
     if (!loading) {
       if (!error) {
-        console.log(response);
+        logIn(response, response.token, userData.username);
         enqueueSnackbar('login', {
           variant: 'success',
         });
+        history.push('/dashboard');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,6 +55,12 @@ const Login = () => {
     const newUserData = { ...userData };
     newUserData[attribut] = e.target.value;
     setUserData(newUserData);
+  };
+
+  const forgotPassword = () => {
+    enqueueSnackbar('Not Implemented :D', {
+      variant: 'warning',
+    });
   };
 
   return (
@@ -78,8 +89,11 @@ const Login = () => {
           type="password"
           value={userData['password']}
           onChange={(e) => onFormChange(e, 'password')}
+          onEnterPress={onLogin}
         />
-        <div className="forgot-password">Lupa Kata Sandi?</div>
+        <div onClick={forgotPassword} className="forgot-password">
+          Lupa Kata Sandi?
+        </div>
         <Button title="Masuk" color="green" width="100%" onClick={onLogin} />
       </div>
       <img className="paper-logo" src={paperLogo} alt="paper-logo" />

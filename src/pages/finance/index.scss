@@ -27,11 +27,11 @@
     margin-left: 0 auto;
   }
 
-  .PrivateTabIndicator-colorPrimary-2 {
-    background-color: $light-blue;
-    height: 0.3rem;
+  .MuiTabs-indicator {
+    background-color: $light-blue !important;
+    height: 0.3rem !important;
     width: 5rem !important;
-    margin: 0 2.5rem;
+    margin: 0 2.5rem !important;
   }
 
   .MuiTab-root {
