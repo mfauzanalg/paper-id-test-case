@@ -2,16 +2,18 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import Cookies from 'js-cookie';
 
 const useAxios = (config) => {
   const { enqueueSnackbar } = useSnackbar();
-
   const [response, setResponse] = useState();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const token = Cookies.get('token');
   const axiosInstace = axios.create({
     baseURL: 'https://development.paper.id:3500/test-case/api/v1',
+    headers: { Authorization: `Bearer ${token}` },
   });
 
   const fetch = () => {

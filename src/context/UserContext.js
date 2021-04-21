@@ -1,5 +1,6 @@
 import { useState, createContext } from 'react';
 import Cookie from 'js-cookie';
+import ls from 'local-storage';
 import moment from 'moment';
 
 export const UserContext = createContext();
@@ -14,7 +15,7 @@ export const UserProvider = (props) => {
 
   const logOut = () => {
     Cookie.remove('token');
-    Cookie.remove('username');
+    ls.remove('data');
     setCurrentUser({
       isLoggedIn: false,
       lastLogin: '',
@@ -25,15 +26,18 @@ export const UserProvider = (props) => {
   };
 
   const logIn = (response, token, username) => {
-    Cookie.set('token', response.token);
-    Cookie.set('username', username);
-    setCurrentUser({
+    Cookie.set('token', token);
+    const userData = {
       isLoggedIn: true,
       lastLogin: moment(response.last_login),
       name: response.name,
-      username,
+      username: username,
+    };
+    setCurrentUser({
+      ...userData,
       token: token,
     });
+    ls.set('data', userData);
   };
 
   return (

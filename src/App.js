@@ -1,4 +1,5 @@
-// import { useContext, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import login from './pages/login';
@@ -6,8 +7,9 @@ import dashboard from './pages/dashboard';
 import finance from './pages/finance';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
-// import Cookies from 'js-cookie';
-// import { UserContext } from './context/UserContext';
+import Cookies from 'js-cookie';
+import ls from 'local-storage';
+import { UserContext } from './context/UserContext';
 
 const NavRoute = ({ path, component: Component }) => (
   <Route
@@ -26,14 +28,14 @@ const NavRoute = ({ path, component: Component }) => (
 );
 
 function App() {
-  // useEffect(() => {
-  //   const token = Cookies.get('token');
-  //   const username = Cookies.get('username');
-  //   if (token && username) logIn(token, username);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    const token = Cookies.get('token');
+    const userData = ls.get('data');
+    console.log(userData);
+    if (token && userData) logIn(userData, token);
+  }, []);
 
-  // const { logIn } = useContext(UserContext);
+  const { logIn } = useContext(UserContext);
 
   return (
     <div className="App">
