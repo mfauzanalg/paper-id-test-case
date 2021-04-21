@@ -59,7 +59,6 @@ const Finances = () => {
   useEffect(() => {
     if (!loadingPage && !loadingAll) {
       if (!errorAll && !errorPage) {
-        console.log(responsePage);
         const newInstanceArray = responsePage.data.map((item, index) => {
           return [
             item.title,
@@ -86,6 +85,7 @@ const Finances = () => {
     setIsDialogOpen(true);
   };
   const onActionView = (instanceData) => {
+    console.log(instanceData);
     setSelectedInstance(instanceData);
     setIsViewDialogOpen(true);
   };
