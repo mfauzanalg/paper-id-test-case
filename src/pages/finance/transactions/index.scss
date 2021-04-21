@@ -2,6 +2,7 @@
 
 .transactions-page {
   margin-top: 0.5rem;
+
   .title {
     color: $text-tertiary;
     font-weight: 600;
@@ -21,5 +22,7 @@
 
   .table-container {
     margin-top: 2rem;
+    overflow: scroll;
+    overflow-y: hidden;
   }
 }

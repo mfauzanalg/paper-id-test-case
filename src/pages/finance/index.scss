@@ -3,7 +3,7 @@
 .finance-page {
   padding: 2rem;
   background-color: $background-secondary;
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
 
   .tab-container {
     .tab {

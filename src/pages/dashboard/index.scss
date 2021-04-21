@@ -2,7 +2,7 @@
 
 .dashboard-page {
   background-color: $background-secondary;
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
   padding-left: 2rem;
 
   .page-title {

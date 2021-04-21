@@ -9,7 +9,7 @@
       transition: all 0.2s ease-in-out;
       display: flex;
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
 
       &:hover {
@@ -33,8 +33,9 @@
   // Header style
   th {
     background-color: transparent;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
+    min-width: 13rem;
 
     div {
       display: flex;
@@ -69,7 +70,7 @@
     font-size: 0.9rem;
     td {
       .content {
-        padding: 1.25rem 0.5rem;
+        padding: 1.1rem 0.5rem;
       }
     }
 

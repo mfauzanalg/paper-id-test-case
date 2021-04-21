@@ -7,7 +7,7 @@ import useAxios from '../../hooks/useAxios';
 const Dashboard = () => {
   const { response, loading, error, fetch } = useAxios({
     method: 'get',
-    url: '/finance-accounts?sort_field=id&sort_type=1&page=-1&per_page=-1',
+    url: '/finance-accounts?sort_field=id&sort_type=-1&page=-1&per_page=-1',
   });
 
   useEffect(() => {

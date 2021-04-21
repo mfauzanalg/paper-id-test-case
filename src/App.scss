@@ -9,10 +9,12 @@
 
 .sidebar {
   display: flex;
+  max-width: 100vw;
 
   .sidebar-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    min-width: calc(100% - 12rem);
+    max-width: calc(100% - 12rem);
   }
 }

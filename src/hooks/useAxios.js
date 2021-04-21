@@ -25,8 +25,8 @@ const useAxios = (config) => {
       })
       .catch(function (error) {
         if (error.response) {
-          setError(error?.response?.data?.message);
-          enqueueSnackbar(error?.response?.data?.message, {
+          setError(error?.response?.data?.error?.message);
+          enqueueSnackbar(error?.response?.data?.error.message, {
             variant: 'error',
           });
         }

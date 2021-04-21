@@ -15,7 +15,6 @@ ReactDOM.render(
     }}
     TransitionComponent={Grow}
     autoHideDuration={1500}
-    preventDuplicate={true}
   >
     <UserProvider>
       <App />

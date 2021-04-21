@@ -13,15 +13,15 @@ import useAxios from '../../../hooks/useAxios';
 
 const Accounts = () => {
   const tableConfig = [
-    { title: 'Account Name', isSearchable: true, isSortable: false },
+    { title: 'Account Name', isSearchable: true, isSortable: true },
     { title: 'Description', isSearchable: false, isSortable: false },
-    { title: 'Account Type', isSearchable: false, isSortable: false },
+    { title: 'Account Type', isSearchable: true, isSortable: true },
   ];
 
   const [instanceArray, setInstanceArray] = useState([]);
   const [isShowTable, setIsShowTable] = useState(false);
   const [query, setQuery] = useState({
-    perPage: 7,
+    perPage: 5,
     currentPage: 0,
     name: '',
   });
@@ -44,7 +44,7 @@ const Accounts = () => {
   } = useAxios({
     method: 'get',
     url:
-      '/finance-accounts?name=&sort_field=created_at&sort_type=1&page=0&per_page=7',
+      '/finance-accounts?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
   });
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Accounts = () => {
 
   useEffect(() => {
     if (!loadingPage && !loadingAll) {
-      if (!errorAll & !errorPage) {
+      if (!errorAll && !errorPage) {
         const newInstanceArray = responsePage.data.map((item, index) => {
           return [item.name, item.Description, item.type];
         });
@@ -120,21 +120,23 @@ const Accounts = () => {
         </div>
       </div>
       {isShowTable && (
-        <div className="table-container">
-          <Table
-            config={tableConfig}
-            completeData={responsePage.data}
-            data={{
-              text: { instanceArray },
-              action: { onActionView, onActionEdit, onActionDelete },
-            }}
-          />
-          <DeleteDialog
-            isOpen={isDeleteDialogOpen}
-            setIsOpen={setIsDeleteDialogOpen}
-            name="Example"
-            className="dialog"
-          />
+        <div>
+          <div className="table-container">
+            <Table
+              config={tableConfig}
+              completeData={responsePage.data}
+              data={{
+                text: { instanceArray },
+                action: { onActionView, onActionEdit, onActionDelete },
+              }}
+            />
+            <DeleteDialog
+              isOpen={isDeleteDialogOpen}
+              setIsOpen={setIsDeleteDialogOpen}
+              name="Example"
+              className="dialog"
+            />
+          </div>
           <Pagination count={Math.ceil(responseAll.count / query.perPage)} />
         </div>
       )}
