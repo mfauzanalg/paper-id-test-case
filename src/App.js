@@ -31,7 +31,6 @@ function App() {
   useEffect(() => {
     const token = Cookies.get('token');
     const userData = ls.get('data');
-    console.log(userData);
     if (token && userData) logIn(userData, token);
   }, []);
 

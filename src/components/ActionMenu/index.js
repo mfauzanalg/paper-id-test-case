@@ -3,7 +3,7 @@ import './index.scss';
 import { CaretDownOutline } from 'react-ionicons';
 import { EyeOutline, PencilOutline, TrashOutline } from 'react-ionicons';
 
-const ActionMenu = ({ action }) => {
+const ActionMenu = ({ action, instanceData }) => {
   const node = useRef();
   const [isOpenAction, setIsOpenAction] = useState(false);
 
@@ -38,15 +38,24 @@ const ActionMenu = ({ action }) => {
       {isOpenAction && (
         <div className="action-container">
           <div className="action-list">
-            <div className="action" onClick={() => action.onActionView()}>
+            <div
+              className="action"
+              onClick={() => action.onActionView(instanceData)}
+            >
               <EyeOutline className="icon" color="#405568" />
               View
             </div>
-            <div className="action" onClick={() => action.onActionEdit()}>
+            <div
+              className="action"
+              onClick={() => action.onActionEdit(instanceData)}
+            >
               <PencilOutline className="icon" color="#405568" />
               Edit
             </div>
-            <div className="action" onClick={() => action.onActionDelete()}>
+            <div
+              className="action"
+              onClick={() => action.onActionDelete(instanceData)}
+            >
               <TrashOutline className="icon" color="#405568" />
               Delete
             </div>

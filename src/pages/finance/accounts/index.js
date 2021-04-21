@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 import SearchBar from '../../../components/SearcBar';
 import Button from '../../../components/Button';
@@ -8,6 +9,7 @@ import Dialog from '../../../components/Dialog';
 import DeleteDialog from '../../../components/DeleteDialog';
 import { accountDialog } from '../../../components/Dialog/AccountDialog';
 import { accountDialogView } from '../../../components/Dialog/AccountDialog';
+import useAxios from '../../../hooks/useAxios';
 
 const Accounts = () => {
   const tableConfig = [
@@ -16,25 +18,79 @@ const Accounts = () => {
     { title: 'Account Type', isSearchable: false, isSortable: false },
   ];
 
+  const [instanceArray, setInstanceArray] = useState([]);
+  const [isShowTable, setIsShowTable] = useState(false);
+  const [query, setQuery] = useState({
+    perPage: 7,
+    currentPage: 0,
+    name: '',
+  });
+
+  const {
+    response: responseAll,
+    loading: loadingAll,
+    error: errorAll,
+    fetch: fetchAll,
+  } = useAxios({
+    method: 'get',
+    url: '/finance-accounts?sort_field=id&sort_type=1&page=-1&per_page=-1',
+  });
+
+  const {
+    response: responsePage,
+    loading: loadingPage,
+    error: errorPage,
+    fetch: fetchPage,
+  } = useAxios({
+    method: 'get',
+    url:
+      '/finance-accounts?name=&sort_field=created_at&sort_type=1&page=0&per_page=7',
+  });
+
+  useEffect(() => {
+    fetchAll();
+    fetchPage();
+  }, []);
+
+  useEffect(() => {
+    if (!loadingPage && !loadingAll) {
+      if (!errorAll & !errorPage) {
+        const newInstanceArray = responsePage.data.map((item, index) => {
+          return [item.name, item.Description, item.type];
+        });
+
+        setInstanceArray(newInstanceArray);
+        setIsShowTable(true);
+      }
+    }
+  }, [loadingPage, loadingAll]);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  const [selectedInstance, setSelectedInstance] = useState({});
 
   const onCreateAccount = () => {
     setIsDialogOpen(true);
   };
-  const onActionView = () => {
+  const onActionView = (instanceData) => {
+    setSelectedInstance(instanceData);
     setIsViewDialogOpen(true);
   };
-  const onActionEdit = () => {
+  const onActionEdit = (instanceData) => {
     setIsDialogOpen(true);
   };
-  const onActionDelete = () => {
+  const onActionDelete = (instanceData) => {
     setIsDeleteDialogOpen(true);
   };
 
-  const dialogData = accountDialog();
-  const dialogDataView = accountDialogView();
+  let dialogData = accountDialog(selectedInstance);
+  let dialogDataView = accountDialogView(selectedInstance);
+
+  useEffect(() => {
+    dialogData = accountDialog(selectedInstance);
+    dialogDataView = accountDialogView(selectedInstance);
+  }, [selectedInstance]);
 
   return (
     <div className="accounts-page">
@@ -63,22 +119,25 @@ const Accounts = () => {
           />
         </div>
       </div>
-      <div className="table-container">
-        <Table
-          config={tableConfig}
-          data={{
-            text: ['example', 'example', 'example'],
-            action: { onActionView, onActionEdit, onActionDelete },
-          }}
-        />
-        <DeleteDialog
-          isOpen={isDeleteDialogOpen}
-          setIsOpen={setIsDeleteDialogOpen}
-          name="Example"
-          className="dialog"
-        />
-        <Pagination />
-      </div>
+      {isShowTable && (
+        <div className="table-container">
+          <Table
+            config={tableConfig}
+            completeData={responsePage.data}
+            data={{
+              text: { instanceArray },
+              action: { onActionView, onActionEdit, onActionDelete },
+            }}
+          />
+          <DeleteDialog
+            isOpen={isDeleteDialogOpen}
+            setIsOpen={setIsDeleteDialogOpen}
+            name="Example"
+            className="dialog"
+          />
+          <Pagination count={Math.ceil(responseAll.count / query.perPage)} />
+        </div>
+      )}
     </div>
   );
 };

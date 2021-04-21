@@ -12,7 +12,6 @@
   color: #fff;
   font-weight: 600;
   position: relative;
-  z-index: 1;
 
   .arrow-down {
     margin-top: 0.3rem;
@@ -29,6 +28,7 @@
     box-shadow: 0 0px 15px $hard-dark-shadow;
     font-family: 'Lato';
     min-width: 9rem;
+    z-index: 1;
 
     .action-list {
       .action {

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 import FinanceAccount from '../../components/FinanceAccount';
 import useAxios from '../../hooks/useAxios';

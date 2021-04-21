@@ -1,6 +1,7 @@
 import FormInput from '../../FormInput';
 import Button from '../../Button';
 import './index.scss';
+import moment from 'moment';
 
 export const accountDialog = () => {
   return (
@@ -35,16 +36,20 @@ export const accountDialog = () => {
   );
 };
 
-export const accountDialogView = () => {
+export const accountDialogView = (instance) => {
   return (
     <div className="account-dialog-content-view">
       <div className="account">
-        <label>User Name</label>
-        <div className="user-info">mfauzanalg</div>
-        <label>Name</label>
-        <div className="user-info">Muhammad Fauzan Al-Ghifari</div>
-        <label>Last Login</label>
-        <div className="user-info">26 Maret 2000</div>
+        <label>Account Name</label>
+        <div className="user-info">{instance.name}</div>
+        <label>Description</label>
+        <div className="user-info">{instance.Description}</div>
+        <label>Type</label>
+        <div className="user-info">{instance.type}</div>
+        <label>Created At</label>
+        <div className="user-info">
+          {moment(instance.created_at).format('DD MMMM YYYY')}
+        </div>
       </div>
     </div>
   );

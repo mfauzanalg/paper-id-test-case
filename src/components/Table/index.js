@@ -3,7 +3,7 @@ import './index.scss';
 import ActionMenu from '../ActionMenu';
 import { CaretDownOutline } from 'react-ionicons';
 
-const Table = ({ config, data }) => {
+const Table = ({ config, data, completeData }) => {
   return (
     <div className="table-component">
       <table>
@@ -39,20 +39,27 @@ const Table = ({ config, data }) => {
               <div>Action</div>
             </th>
           </tr>
-          <tr className="content-table">
-            {data.text.map((item, index) => {
-              return (
-                <td key={index}>
-                  <div className="content">{item}</div>
+          {data.text.instanceArray.map((instance, index) => {
+            return (
+              <tr className="content-table" key={index}>
+                {instance.map((item, index) => {
+                  return (
+                    <td key={index}>
+                      <div className="content">{item}</div>
+                    </td>
+                  );
+                })}
+                <td>
+                  <div>
+                    <ActionMenu
+                      action={data.action}
+                      instanceData={completeData[index]}
+                    />
+                  </div>
                 </td>
-              );
-            })}
-            <td>
-              <div>
-                <ActionMenu action={data.action} />
-              </div>
-            </td>
-          </tr>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
