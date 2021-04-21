@@ -93,6 +93,7 @@ const Finances = () => {
     setIsDialogOpen(true);
   };
   const onActionDelete = (instanceData) => {
+    setSelectedInstance(instanceData);
     setIsDeleteDialogOpen(true);
   };
 
@@ -147,6 +148,9 @@ const Finances = () => {
               setIsOpen={setIsDeleteDialogOpen}
               name="Example"
               className="dialog"
+              instance={selectedInstance}
+              type="finances"
+              reload={fetchPage}
             />
           </div>
           <Pagination count={Math.ceil(responseAll.count / query.perPage)} />

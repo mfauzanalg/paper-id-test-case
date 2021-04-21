@@ -20,6 +20,7 @@ const Accounts = () => {
 
   const [instanceArray, setInstanceArray] = useState([]);
   const [isShowTable, setIsShowTable] = useState(false);
+  const [selectedInstance, setSelectedInstance] = useState({});
   const [query, setQuery] = useState({
     perPage: 5,
     currentPage: 0,
@@ -68,7 +69,6 @@ const Accounts = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
-  const [selectedInstance, setSelectedInstance] = useState({});
 
   const onCreateAccount = () => {
     setIsDialogOpen(true);
@@ -81,6 +81,7 @@ const Accounts = () => {
     setIsDialogOpen(true);
   };
   const onActionDelete = (instanceData) => {
+    setSelectedInstance(instanceData);
     setIsDeleteDialogOpen(true);
   };
 
@@ -135,6 +136,9 @@ const Accounts = () => {
               setIsOpen={setIsDeleteDialogOpen}
               name="Example"
               className="dialog"
+              instance={selectedInstance}
+              type="finance-accounts"
+              reload={fetchPage}
             />
           </div>
           <Pagination count={Math.ceil(responseAll.count / query.perPage)} />
