@@ -52,6 +52,11 @@ const Finances = () => {
       '/finances?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
   });
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  const [selectedInstance, setSelectedInstance] = useState({});
+
   useEffect(() => {
     fetchAll();
     fetchPage();
@@ -70,10 +75,6 @@ const Finances = () => {
             item.finance_account_type,
           ];
         });
-
-        console.log('haha');
-        console.log(responseAll.count);
-        console.log(Math.ceil(responseAll.count / query.perPage));
         setNumPage(Math.ceil(responseAll.count / query.perPage));
         setInstanceArray(newInstanceArray);
         setIsShowTable(true);
@@ -81,16 +82,15 @@ const Finances = () => {
     }
   }, [loadingPage, loadingAll]);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
-  const [selectedInstance, setSelectedInstance] = useState({});
+  useEffect(() => {
+    dialogDataView = financeDialogView(selectedInstance);
+  }, [selectedInstance]);
 
   const onCreateFinance = () => {
+    setSelectedInstance({});
     setIsDialogOpen(true);
   };
   const onActionView = (instanceData) => {
-    console.log(instanceData);
     setSelectedInstance(instanceData);
     setIsViewDialogOpen(true);
   };
@@ -102,13 +102,7 @@ const Finances = () => {
     setIsDeleteDialogOpen(true);
   };
 
-  let dialogData = financeDialog(selectedInstance);
   let dialogDataView = financeDialogView(selectedInstance);
-
-  useEffect(() => {
-    dialogData = financeDialog(selectedInstance);
-    dialogDataView = financeDialogView(selectedInstance);
-  }, [selectedInstance]);
 
   return (
     <div className="transactions-page">
@@ -124,9 +118,13 @@ const Finances = () => {
           <Dialog
             isOpen={isDialogOpen}
             setIsOpen={setIsDialogOpen}
-            title="Create New Account"
-            content={dialogData}
+            title="Create New Transaction"
             className="dialog"
+            selectedInstance={selectedInstance}
+            setSelectedInstance={setSelectedInstance}
+            setIsDialogOpen={setIsDialogOpen}
+            reload={[fetchPage, fetchAll]}
+            type="transaction"
           />
           <Dialog
             isOpen={isViewDialogOpen}

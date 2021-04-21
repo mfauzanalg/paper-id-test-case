@@ -7,7 +7,6 @@ import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
 import DeleteDialog from '../../../components/DeleteDialog';
-import { AccountDialog } from '../../../components/Dialog/AccountDialog';
 import { accountDialogView } from '../../../components/Dialog/AccountDialog';
 import useAxios from '../../../hooks/useAxios';
 
@@ -50,11 +49,6 @@ const Accounts = () => {
     method: 'get',
     url:
       '/finance-accounts?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
-  });
-
-  const createAccount = useAxios({
-    method: 'post',
-    url: '/finance-accounts',
   });
 
   useEffect(() => {
@@ -118,6 +112,7 @@ const Accounts = () => {
             setSelectedInstance={setSelectedInstance}
             setIsDialogOpen={setIsDialogOpen}
             reload={[fetchPage, fetchAll]}
+            type="account"
           />
           <Dialog
             isOpen={isViewDialogOpen}

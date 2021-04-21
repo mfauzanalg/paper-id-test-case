@@ -8,6 +8,7 @@
     label {
       display: flex;
       align-items: center;
+      font-size: 0.8rem;
 
       img {
         margin-right: 0.75rem;
@@ -29,6 +30,7 @@
 
     option {
       font-size: 0.8rem;
+      position: absolute;
     }
 
     input:focus,

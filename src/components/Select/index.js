@@ -1,18 +1,22 @@
 import React from 'react';
 import './index.scss';
 
-const Select = ({ label, placeholder }) => {
+const Select = ({ label, options, onChange }) => {
   return (
     <div className="select-component">
       <div className="select-container">
         <label>{label}</label>
-        <select>
-          <option value="" disabled selected>
+        <select onChange={onChange} defaultValue="">
+          <option value="" disabled>
             Select your Account
           </option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
+          {options.map((option) => {
+            return (
+              <option value={option.id} key={option.id}>
+                {option.name}
+              </option>
+            );
+          })}
         </select>
       </div>
     </div>

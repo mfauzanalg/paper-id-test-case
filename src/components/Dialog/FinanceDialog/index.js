@@ -1,42 +1,135 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import FormInput from '../../FormInput';
 import Button from '../../Button';
 import Select from '../../Select';
 import './index.scss';
 import moment from 'moment';
+import useAxios from '../../../hooks/useAxios';
+import { useSnackbar } from 'notistack';
 
-export const financeDialog = () => {
+export const FinanceDialog = ({
+  instance,
+  setInstance,
+  setIsDialogOpen,
+  reload,
+}) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    response: responseCreate,
+    loading: loadingCreate,
+    error: errorCreate,
+    fetch: fetchCreate,
+  } = useAxios({
+    method: 'post',
+    url: '/finances',
+    data: instance,
+  });
+
+  const {
+    response: responseAll,
+    loading: loadingAll,
+    error: errorAll,
+    fetch: fetchAll,
+  } = useAxios({
+    method: 'get',
+    url: '/finance-accounts?sort_field=id&sort_type=-1&page=-1&per_page=-1',
+  });
+
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    if (!loadingCreate && !errorCreate) {
+      handleClose();
+      reload[0]();
+      reload[1]();
+      enqueueSnackbar('Success Create New Transaction', {
+        variant: 'success',
+      });
+    }
+
+    if (!loadingAll && !errorAll) {
+      setAccounts(responseAll.data);
+    }
+  }, [loadingCreate, loadingAll]);
+
+  useEffect(() => {
+    fetchAll();
+  }, []);
+
+  const onFormChange = (e, attribut) => {
+    const newInstance = { ...instance };
+    if (attribut === 'debit_amount') {
+      newInstance[attribut] = parseInt(e.target.value);
+      newInstance['credit_amount'] = parseInt(e.target.value);
+    } else if (attribut === 'finance_account_id') {
+      newInstance[attribut] = parseInt(e.target.value);
+    } else {
+      newInstance[attribut] = e.target.value;
+    }
+    setInstance(newInstance);
+    console.log(newInstance);
+  };
+
+  const handleClose = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleOnClick = () => {
+    fetchCreate();
+    console.log(instance);
+  };
+
   return (
-    <div className="Finance-dialog-content">
+    <div className="finance-dialog-content">
       <FormInput
         label="Finance Name"
         placeholder="Inout your finance name"
         type="text"
         inputClass="dialog"
+        value={instance['title']}
+        onChange={(e) => onFormChange(e, 'title')}
       />
       <Select
         label="Finance Account"
-        placeholder="select finance account"
-        type="text"
-        inputClass="dialog"
+        value={instance['name']}
+        onChange={(e) => onFormChange(e, 'finance_account_id')}
+        options={accounts}
       />
       <FormInput
         label="Amount"
         placeholder="Amount"
-        type="text"
+        type="number"
         inputClass="dialog"
+        value={instance['debit_amount']}
+        onChange={(e) => onFormChange(e, 'debit_amount')}
       />
       <FormInput
         label="Description"
         placeholder="Description"
         type="text"
         inputClass="dialog"
+        value={instance['description']}
+        onChange={(e) => onFormChange(e, 'description')}
       />
       <div className="button-container">
         <div className="button">
-          <Button title="Simpan" color="green" addClass="form-button" />
+          <Button
+            onClick={handleOnClick}
+            title="Simpan"
+            color="green"
+            addClass="form-button"
+          />
         </div>
         <div className="button">
-          <Button title="Batal" color="empty" addClass="form-button" />
+          <Button
+            onClick={handleClose}
+            title="Batal"
+            color="empty"
+            addClass="form-button"
+          />
         </div>
       </div>
     </div>
