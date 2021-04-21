@@ -14,6 +14,7 @@ export const FinanceDialog = ({
   setInstance,
   setIsDialogOpen,
   reload,
+  action,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
@@ -38,6 +39,17 @@ export const FinanceDialog = ({
     url: '/finance-accounts?sort_field=id&sort_type=-1&page=-1&per_page=-1',
   });
 
+  const {
+    response: responseUpdate,
+    loading: loadingUpdate,
+    error: errorUpdate,
+    fetch: fetchUpdate,
+  } = useAxios({
+    method: 'patch',
+    url: `/finances/${instance.id}`,
+    data: instance,
+  });
+
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
@@ -53,7 +65,16 @@ export const FinanceDialog = ({
     if (!loadingAll && !errorAll) {
       setAccounts(responseAll.data);
     }
-  }, [loadingCreate, loadingAll]);
+
+    if (!loadingUpdate && !errorUpdate) {
+      handleClose();
+      reload[0]();
+      reload[1]();
+      enqueueSnackbar('Success Update Transaction', {
+        variant: 'success',
+      });
+    }
+  }, [loadingCreate, loadingAll, loadingUpdate]);
 
   useEffect(() => {
     fetchAll();
@@ -78,8 +99,11 @@ export const FinanceDialog = ({
   };
 
   const handleOnClick = () => {
-    fetchCreate();
-    console.log(instance);
+    if (action === 'create') {
+      fetchCreate();
+    } else {
+      fetchUpdate();
+    }
   };
 
   return (

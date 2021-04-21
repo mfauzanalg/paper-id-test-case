@@ -7,7 +7,6 @@ import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
 import DeleteDialog from '../../../components/DeleteDialog';
-import { financeDialog } from '../../../components/Dialog/FinanceDialog';
 import { financeDialogView } from '../../../components/Dialog/FinanceDialog';
 import useAxios from '../../../hooks/useAxios';
 import moment from 'moment';
@@ -95,6 +94,7 @@ const Finances = () => {
     setIsViewDialogOpen(true);
   };
   const onActionEdit = (instanceData) => {
+    setSelectedInstance(instanceData);
     setIsDialogOpen(true);
   };
   const onActionDelete = (instanceData) => {
@@ -118,7 +118,6 @@ const Finances = () => {
           <Dialog
             isOpen={isDialogOpen}
             setIsOpen={setIsDialogOpen}
-            title="Create New Transaction"
             className="dialog"
             selectedInstance={selectedInstance}
             setSelectedInstance={setSelectedInstance}

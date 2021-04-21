@@ -13,6 +13,7 @@ export const AccountDialog = ({
   setInstance,
   setIsDialogOpen,
   reload,
+  action,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
@@ -27,6 +28,17 @@ export const AccountDialog = ({
     data: instance,
   });
 
+  const {
+    response: responseUpdate,
+    loading: loadingUpdate,
+    error: errorUpdate,
+    fetch: fetchUpdate,
+  } = useAxios({
+    method: 'patch',
+    url: `/finance-accounts/${instance.id}`,
+    data: instance,
+  });
+
   useEffect(() => {
     if (!loadingCreate && !errorCreate) {
       handleClose();
@@ -36,7 +48,16 @@ export const AccountDialog = ({
         variant: 'success',
       });
     }
-  }, [loadingCreate]);
+
+    if (!loadingUpdate && !errorUpdate) {
+      handleClose();
+      reload[0]();
+      reload[1]();
+      enqueueSnackbar('Success Update Account', {
+        variant: 'success',
+      });
+    }
+  }, [loadingCreate, loadingUpdate]);
 
   const onFormChange = (e, attribut) => {
     const newInstance = { ...instance };
@@ -49,8 +70,11 @@ export const AccountDialog = ({
   };
 
   const handleOnClick = () => {
-    fetchCreate();
-    console.log(instance);
+    if (action === 'create') {
+      fetchCreate();
+    } else {
+      fetchUpdate();
+    }
   };
 
   return (

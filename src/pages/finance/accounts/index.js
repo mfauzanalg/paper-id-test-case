@@ -83,6 +83,7 @@ const Accounts = () => {
     setIsViewDialogOpen(true);
   };
   const onActionEdit = (instanceData) => {
+    setSelectedInstance(instanceData);
     setIsDialogOpen(true);
   };
   const onActionDelete = (instanceData) => {
@@ -106,7 +107,6 @@ const Accounts = () => {
           <Dialog
             isOpen={isDialogOpen}
             setIsOpen={setIsDialogOpen}
-            title="Create New Account"
             className="dialog"
             selectedInstance={selectedInstance}
             setSelectedInstance={setSelectedInstance}
@@ -117,7 +117,7 @@ const Accounts = () => {
           <Dialog
             isOpen={isViewDialogOpen}
             setIsOpen={setIsViewDialogOpen}
-            title="Viewing"
+            titleView="Viewing"
             content={dialogDataView}
             className="dialog"
           />

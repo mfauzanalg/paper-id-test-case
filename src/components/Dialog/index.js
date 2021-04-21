@@ -9,17 +9,30 @@ import { FinanceDialog } from './FinanceDialog';
 const DialogComponent = ({
   isOpen,
   setIsOpen,
-  title,
   content,
   selectedInstance,
   setSelectedInstance,
   setIsDialogOpen,
   reload,
   type,
+  titleView,
 }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  let title;
+  if (type === 'account') {
+    if (selectedInstance?.created_at) {
+      title = 'Edit Account';
+    } else title = 'Create Account';
+  } else {
+    if (selectedInstance?.created_at) {
+      title = 'Edit Finance Transaction';
+    } else title = 'Create Finance Transaction';
+  }
+
+  const action = selectedInstance?.created_at ? 'edit' : 'create';
 
   return (
     <Dialog
@@ -33,7 +46,7 @@ const DialogComponent = ({
           className="close-icon"
           color="#405568"
         />
-        <div className="title">{title}</div>
+        <div className="title">{titleView ? titleView : title}</div>
         <div className="dialog-content"></div>
         {content ? (
           content
@@ -43,6 +56,7 @@ const DialogComponent = ({
             setInstance={setSelectedInstance}
             setIsDialogOpen={setIsDialogOpen}
             reload={reload}
+            action={action}
           />
         ) : (
           <FinanceDialog
@@ -50,6 +64,7 @@ const DialogComponent = ({
             setInstance={setSelectedInstance}
             setIsDialogOpen={setIsDialogOpen}
             reload={reload}
+            action={action}
           />
         )}
       </div>
