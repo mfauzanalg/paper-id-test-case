@@ -7,7 +7,7 @@ import Table from '../../../components/Table';
 import Pagination from '../../../components/Pagination';
 import Dialog from '../../../components/Dialog';
 import DeleteDialog from '../../../components/DeleteDialog';
-import { accountDialog } from '../../../components/Dialog/AccountDialog';
+import { AccountDialog } from '../../../components/Dialog/AccountDialog';
 import { accountDialogView } from '../../../components/Dialog/AccountDialog';
 import useAxios from '../../../hooks/useAxios';
 
@@ -21,6 +21,10 @@ const Accounts = () => {
   const [instanceArray, setInstanceArray] = useState([]);
   const [isShowTable, setIsShowTable] = useState(false);
   const [selectedInstance, setSelectedInstance] = useState({});
+  const [numPage, setNumPage] = useState(0);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
   const [query, setQuery] = useState({
     perPage: 5,
     currentPage: 0,
@@ -48,6 +52,11 @@ const Accounts = () => {
       '/finance-accounts?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
   });
 
+  const createAccount = useAxios({
+    method: 'post',
+    url: '/finance-accounts',
+  });
+
   useEffect(() => {
     fetchAll();
     fetchPage();
@@ -61,16 +70,18 @@ const Accounts = () => {
         });
 
         setInstanceArray(newInstanceArray);
+        setNumPage(Math.ceil(responseAll.count / query.perPage));
         setIsShowTable(true);
       }
     }
   }, [loadingPage, loadingAll]);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
+  useEffect(() => {
+    dialogDataView = accountDialogView(selectedInstance);
+  }, [selectedInstance]);
 
   const onCreateAccount = () => {
+    setSelectedInstance({});
     setIsDialogOpen(true);
   };
   const onActionView = (instanceData) => {
@@ -85,13 +96,7 @@ const Accounts = () => {
     setIsDeleteDialogOpen(true);
   };
 
-  let dialogData = accountDialog(selectedInstance);
   let dialogDataView = accountDialogView(selectedInstance);
-
-  useEffect(() => {
-    dialogData = accountDialog(selectedInstance);
-    dialogDataView = accountDialogView(selectedInstance);
-  }, [selectedInstance]);
 
   return (
     <div className="accounts-page">
@@ -108,8 +113,11 @@ const Accounts = () => {
             isOpen={isDialogOpen}
             setIsOpen={setIsDialogOpen}
             title="Create New Account"
-            content={dialogData}
             className="dialog"
+            selectedInstance={selectedInstance}
+            setSelectedInstance={setSelectedInstance}
+            setIsDialogOpen={setIsDialogOpen}
+            reload={[fetchPage, fetchAll]}
           />
           <Dialog
             isOpen={isViewDialogOpen}
@@ -138,10 +146,10 @@ const Accounts = () => {
               className="dialog"
               instance={selectedInstance}
               type="finance-accounts"
-              reload={fetchPage}
+              reload={[fetchPage, fetchAll]}
             />
           </div>
-          <Pagination count={Math.ceil(responseAll.count / query.perPage)} />
+          <Pagination count={numPage} />
         </div>
       )}
     </div>

@@ -32,7 +32,8 @@ const DeleteDialog = ({ isOpen, setIsOpen, name, instance, type, reload }) => {
       enqueueSnackbar('Success Delete', {
         variant: 'success',
       });
-      reload();
+      reload[0]();
+      reload[1]();
       handleClose();
     }
   }, [loading]);

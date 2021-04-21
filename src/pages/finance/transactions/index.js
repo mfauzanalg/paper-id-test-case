@@ -18,12 +18,13 @@ const Finances = () => {
     { title: 'Description', isSearchable: false, isSortable: false },
     { title: 'Transaction Date', isSearchable: false, isSortable: true },
     { title: 'Amount', isSearchable: false, isSortable: true },
-    { title: 'Finance Account Name', isSearchable: true, isSortable: true },
-    { title: 'Finance Account Type', isSearchable: true, isSortable: true },
+    { title: 'Account Name', isSearchable: true, isSortable: true },
+    { title: 'Account Type', isSearchable: true, isSortable: true },
   ];
 
   const [instanceArray, setInstanceArray] = useState([]);
   const [isShowTable, setIsShowTable] = useState(false);
+  const [numPage, setNumPage] = useState(0);
   const [query, setQuery] = useState({
     perPage: 5,
     currentPage: 0,
@@ -63,13 +64,17 @@ const Finances = () => {
           return [
             item.title,
             item.description,
-            moment(item.created_at).format('DD MMMM YYYY'),
+            moment(item.created_at).format('DD/MM/YYYY'),
             item.credit_amount,
             item.finance_account_name,
             item.finance_account_type,
           ];
         });
 
+        console.log('haha');
+        console.log(responseAll.count);
+        console.log(Math.ceil(responseAll.count / query.perPage));
+        setNumPage(Math.ceil(responseAll.count / query.perPage));
         setInstanceArray(newInstanceArray);
         setIsShowTable(true);
       }
@@ -150,10 +155,10 @@ const Finances = () => {
               className="dialog"
               instance={selectedInstance}
               type="finances"
-              reload={fetchPage}
+              reload={[fetchPage, fetchAll]}
             />
           </div>
-          <Pagination count={Math.ceil(responseAll.count / query.perPage)} />
+          <Pagination count={numPage} />
         </div>
       )}
     </div>

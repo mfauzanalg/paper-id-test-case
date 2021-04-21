@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 
 import Dialog from '@material-ui/core/Dialog';
-
 import { CloseOutline } from 'react-ionicons';
+import { AccountDialog } from './AccountDialog';
 
-const DialogComponent = ({ isOpen, setIsOpen, title, content }) => {
+const DialogComponent = ({
+  isOpen,
+  setIsOpen,
+  title,
+  content,
+  selectedInstance,
+  setSelectedInstance,
+  setIsDialogOpen,
+  reload,
+}) => {
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -24,7 +33,16 @@ const DialogComponent = ({ isOpen, setIsOpen, title, content }) => {
         />
         <div className="title">{title}</div>
         <div className="dialog-content"></div>
-        {content}
+        {content ? (
+          content
+        ) : (
+          <AccountDialog
+            instance={selectedInstance}
+            setInstance={setSelectedInstance}
+            setIsDialogOpen={setIsDialogOpen}
+            reload={reload}
+          />
+        )}
       </div>
     </Dialog>
   );

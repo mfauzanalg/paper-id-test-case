@@ -3,6 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie';
+import Cookie from 'js-cookie';
+import ls from 'local-storage';
 
 const useAxios = (config) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -29,6 +31,10 @@ const useAxios = (config) => {
           enqueueSnackbar(error?.response?.data?.error.message, {
             variant: 'error',
           });
+          if (error?.response?.status === 401) {
+            Cookie.remove('token');
+            ls.remove('data');
+          }
         }
         setLoading(false);
       });
