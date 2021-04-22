@@ -28,7 +28,13 @@ const Finances = () => {
     perPage: 5,
     currentPage: 0,
     name: '',
+    sortType: -1,
   });
+
+  const createQueryString = (query) => {
+    const newQuery = `/finances?name=${query.name}&sort_field=created_at&sort_type=${query.sortType}&page=${query.currentPage}&per_page=5`;
+    return newQuery;
+  };
 
   const {
     response: responseAll,
@@ -47,8 +53,7 @@ const Finances = () => {
     fetch: fetchPage,
   } = useAxios({
     method: 'get',
-    url:
-      '/finances?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
+    url: createQueryString(query),
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -84,6 +89,12 @@ const Finances = () => {
   useEffect(() => {
     dialogDataView = financeDialogView(selectedInstance);
   }, [selectedInstance]);
+
+  useEffect(() => {
+    console.log(query);
+    fetchAll();
+    fetchPage();
+  }, [query]);
 
   const onCreateFinance = () => {
     setSelectedInstance({});
@@ -155,7 +166,7 @@ const Finances = () => {
               reload={[fetchPage, fetchAll]}
             />
           </div>
-          <Pagination count={numPage} />
+          <Pagination count={numPage} query={query} setQuery={setQuery} />
         </div>
       )}
     </div>

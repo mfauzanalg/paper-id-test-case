@@ -12,9 +12,9 @@ import useAxios from '../../../hooks/useAxios';
 
 const Accounts = () => {
   const tableConfig = [
-    { title: 'Account Name', isSearchable: true, isSortable: true },
+    { title: 'Account Name', isSearchable: true, isSortable: false },
     { title: 'Description', isSearchable: false, isSortable: false },
-    { title: 'Account Type', isSearchable: true, isSortable: true },
+    { title: 'Account Type', isSearchable: false, isSortable: true },
   ];
 
   const [instanceArray, setInstanceArray] = useState([]);
@@ -28,7 +28,13 @@ const Accounts = () => {
     perPage: 5,
     currentPage: 0,
     name: '',
+    sortType: -1,
   });
+
+  const createQueryString = (query) => {
+    const newQuery = `/finance-accounts?name=${query.name}&sort_field=created_at&sort_type=${query.sortType}&page=${query.currentPage}&per_page=5`;
+    return newQuery;
+  };
 
   const {
     response: responseAll,
@@ -47,8 +53,7 @@ const Accounts = () => {
     fetch: fetchPage,
   } = useAxios({
     method: 'get',
-    url:
-      '/finance-accounts?name=&sort_field=created_at&sort_type=-1&page=0&per_page=5',
+    url: createQueryString(query),
   });
 
   useEffect(() => {
@@ -73,6 +78,12 @@ const Accounts = () => {
   useEffect(() => {
     dialogDataView = accountDialogView(selectedInstance);
   }, [selectedInstance]);
+
+  useEffect(() => {
+    console.log(query);
+    fetchAll();
+    fetchPage();
+  }, [query]);
 
   const onCreateAccount = () => {
     setSelectedInstance({});
@@ -144,7 +155,7 @@ const Accounts = () => {
               reload={[fetchPage, fetchAll]}
             />
           </div>
-          <Pagination count={numPage} />
+          <Pagination count={numPage} query={query} setQuery={setQuery} />
         </div>
       )}
     </div>
