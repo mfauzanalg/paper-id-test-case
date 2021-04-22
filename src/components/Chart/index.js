@@ -21,32 +21,20 @@ const color = {
 };
 
 const Chart = ({ details }) => {
+  const backgroundColor = new Array(7).fill(color.green);
+  backgroundColor.push(color.blue);
+
+  const borderColor = new Array(7).fill(color.greenBorder);
+  borderColor.push(color.blueBorder);
+
   const data2 = {
     labels: details.label,
     datasets: [
       {
         label: details.title,
         data: details.data,
-        backgroundColor: [
-          color.green,
-          color.green,
-          color.green,
-          color.green,
-          color.green,
-          color.green,
-          color.green,
-          color.blue,
-        ],
-        borderColor: [
-          color.greenBorder,
-          color.greenBorder,
-          color.greenBorder,
-          color.greenBorder,
-          color.greenBorder,
-          color.greenBorder,
-          color.greenBorder,
-          color.blueBorder,
-        ],
+        backgroundColor,
+        borderColor,
         borderWidth: 1,
       },
     ],

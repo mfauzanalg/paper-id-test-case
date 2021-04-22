@@ -11,6 +11,7 @@ import { useSnackbar } from 'notistack';
 import useAxios from '../../hooks/useAxios';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import ls from 'local-storage';
 
 const Login = () => {
   const { logIn } = useContext(UserContext);
@@ -18,7 +19,7 @@ const Login = () => {
   const history = useHistory();
 
   const [userData, setUserData] = useState({
-    username: 'muhammadfauzan11042021',
+    username: '',
     password: '',
   });
 
@@ -40,6 +41,10 @@ const Login = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
+
+  useEffect(() => {
+    ls.remove('data');
+  });
 
   const onLogin = () => {
     if (userData.username && userData.password) {
