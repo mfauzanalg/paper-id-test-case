@@ -1,0 +1,28 @@
+@import '../../utils/variables.scss';
+
+.not-found-page-container {
+  background-color: $background-primary;
+  background-image: url('../../assets/images/login-page-ornament.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position-y: bottom;
+  height: 100vh;
+  display: flex;
+
+  .not-found-container {
+    position: absolute;
+    left: 20vw;
+    top: 25vh;
+
+    .not-found {
+      width: 30rem;
+    }
+  }
+
+  .paper-logo {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    width: 8rem;
+  }
+}

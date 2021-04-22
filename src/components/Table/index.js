@@ -18,7 +18,6 @@ const Table = ({
     const newQuery = { ...query };
     newQuery[attribut] = value;
     setQuery(newQuery);
-    console.log(newQuery);
   }, 500);
 
   return (

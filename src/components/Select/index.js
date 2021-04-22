@@ -2,8 +2,6 @@ import React from 'react';
 import './index.scss';
 
 const Select = ({ label, options, onChange, value }) => {
-  console.log(String(value));
-
   return (
     <div className="select-component">
       <div className="select-container">

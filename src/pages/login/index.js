@@ -91,8 +91,10 @@ const Login = () => {
           onChange={(e) => onFormChange(e, 'password')}
           onEnterPress={onLogin}
         />
-        <div onClick={forgotPassword} className="forgot-password">
-          Lupa Kata Sandi?
+        <div className="forgot-password">
+          <span className="forgot-password-content" onClick={forgotPassword}>
+            Lupa Kata Sandi?
+          </span>
         </div>
         <Button title="Masuk" color="green" width="100%" onClick={onLogin} />
       </div>
