@@ -208,7 +208,7 @@ const Finances = () => {
           <Dialog
             isOpen={isViewDialogOpen}
             setIsOpen={setIsViewDialogOpen}
-            title="Viewing"
+            titleView="Viewing Transaction"
             content={dialogDataView}
             className="dialog"
           />

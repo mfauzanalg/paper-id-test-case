@@ -8,6 +8,7 @@ import './index.scss';
 import moment from 'moment';
 import useAxios from '../../../hooks/useAxios';
 import { useSnackbar } from 'notistack';
+import { convertToRupiah } from '../../../utils';
 
 export const FinanceDialog = ({
   instance,
@@ -183,7 +184,11 @@ export const financeDialogView = (instance) => {
           {moment(instance.created_at).format('DD MMMM YYYY')}
         </div>
         <label>Amount</label>
-        <div className="info">{instance.debit_amount}</div>
+        <div className="info">
+          {instance.debit_amount
+            ? convertToRupiah(instance.debit_amount)
+            : instance.debit_amount}
+        </div>
         <label>Finance Account name</label>
         <div className="info">{instance.finance_account_name}</div>
         <label>Finance Account Type</label>

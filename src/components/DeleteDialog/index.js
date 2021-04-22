@@ -46,7 +46,9 @@ const DeleteDialog = ({ isOpen, setIsOpen, name, instance, type, reload }) => {
           className="close-icon"
           color="#fff"
         />
-        <div className="title">Delete {name}</div>
+        <div className="title">
+          Delete {instance.name ? instance.name : instance.title}
+        </div>
         <div className="subtitle">Are You Sure?</div>
         <img
           src={deleteIlustration}

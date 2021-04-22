@@ -44,7 +44,8 @@ const Login = () => {
 
   useEffect(() => {
     ls.remove('data');
-  });
+    console.log('remove');
+  }, []);
 
   const onLogin = () => {
     if (userData.username && userData.password) {
