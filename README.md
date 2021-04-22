@@ -1,5 +1,9 @@
 # Paper.id Test Case
 
+## Description
+An app that helps users to track their daily / monthly expenses and incomes, thus ultimately helping them not to overspend or lose track of their finances.
+Made to meet the paper.id test case made with react.js
+
 ## How to run the demo
 
 ### Prerequisites
@@ -9,11 +13,6 @@
 
 - notes : I recommend using npm because I used them to develop
   and test this app
-  
-### Description
-An app that helps users to track their daily / monthly expenses and incomes, thus ultimately helping them not to overspend or lose track of their finances.
-Made to meet the paper.id test case
-
 
 ### How To Run
 
