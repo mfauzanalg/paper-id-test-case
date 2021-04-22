@@ -12,10 +12,18 @@ import useAxios from '../../../hooks/useAxios';
 import qs from 'query-string';
 
 const Accounts = () => {
+  const [sortState, setSortState] = useState({ type: 0 });
   const tableConfig = [
-    { title: 'Account Name', isSearchable: true, isSortable: false },
+    { title: 'Account Name', isSearchable: false, isSortable: false },
     { title: 'Description', isSearchable: false, isSortable: false },
-    { title: 'Account Type', isSearchable: false, isSortable: true },
+    {
+      title: 'Account Type',
+      isSearchable: true,
+      isSortable: true,
+      stateName: 'type',
+      state: sortState['type'],
+      setSortState,
+    },
   ];
 
   const [instanceArray, setInstanceArray] = useState([]);
@@ -120,6 +128,28 @@ const Accounts = () => {
     setQuery(newQuery);
   };
 
+  const onClickHeader = (stateName, state) => {
+    const newState = {};
+    if (state === 0) {
+      newState[stateName] = -1;
+    } else if (state === -1) {
+      newState[stateName] = 1;
+    } else {
+      newState[stateName] = 0;
+    }
+    setSortState(newState);
+
+    const newQuery = { ...query };
+    if (newState[stateName] !== 0) {
+      newQuery['sort_field'] = Object.keys(newState)[0];
+      newQuery['sort_type'] = newState[stateName];
+    } else {
+      newQuery['sort_field'] = 'created_at';
+      newQuery['sort_type'] = -1;
+    }
+    setQuery(newQuery);
+  };
+
   return (
     <div className="accounts-page">
       <div className="title">All Finance Account</div>
@@ -160,6 +190,7 @@ const Accounts = () => {
                 text: { instanceArray },
                 action: { onActionView, onActionEdit, onActionDelete },
               }}
+              onClickHeader={onClickHeader}
             />
             <DeleteDialog
               isOpen={isDeleteDialogOpen}

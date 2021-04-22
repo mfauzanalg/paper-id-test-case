@@ -2,8 +2,10 @@ import React from 'react';
 import './index.scss';
 import ActionMenu from '../ActionMenu';
 import { CaretDownOutline } from 'react-ionicons';
+import { CaretUpOutline } from 'react-ionicons';
+import { SwapVerticalOutline } from 'react-ionicons';
 
-const Table = ({ config, data, completeData }) => {
+const Table = ({ config, data, completeData, onClickHeader }) => {
   return (
     <div className="table-component">
       <table>
@@ -14,14 +16,33 @@ const Table = ({ config, data, completeData }) => {
                 <th key={index}>
                   <div>
                     {header.isSortable && (
-                      <div className="clickable">
+                      <div
+                        className="clickable"
+                        onClick={() =>
+                          onClickHeader(header.stateName, header.state)
+                        }
+                      >
                         <span className="title">
                           {header.title}
-                          <CaretDownOutline
-                            color="black"
-                            width="0.75rem"
-                            className="icon"
-                          />{' '}
+                          {header.state === 1 ? (
+                            <CaretUpOutline
+                              color="black"
+                              width="0.75rem"
+                              className="icon"
+                            />
+                          ) : header.state === -1 ? (
+                            <CaretDownOutline
+                              color="black"
+                              width="0.75rem"
+                              className="icon"
+                            />
+                          ) : (
+                            <SwapVerticalOutline
+                              color="black"
+                              width="0.75rem"
+                              className="icon"
+                            />
+                          )}
                         </span>
                         {header.isSearchable && <input />}
                       </div>

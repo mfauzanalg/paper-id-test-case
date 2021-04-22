@@ -45,7 +45,7 @@ export const FinanceDialog = ({
     error: errorUpdate,
     fetch: fetchUpdate,
   } = useAxios({
-    method: 'patch',
+    method: 'put',
     url: `/finances/${instance.id}`,
     data: instance,
   });

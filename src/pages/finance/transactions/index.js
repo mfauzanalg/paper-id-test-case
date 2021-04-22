@@ -11,15 +11,45 @@ import { financeDialogView } from '../../../components/Dialog/FinanceDialog';
 import useAxios from '../../../hooks/useAxios';
 import moment from 'moment';
 import qs from 'query-string';
+import { convertToRupiah } from '../../../utils';
 
 const Finances = () => {
+  const [sortState, setSortState] = useState({ type: 0 });
   const tableConfig = [
-    { title: 'Title', isSearchable: true, isSortable: true },
+    { title: 'Title', isSearchable: false, isSortable: false },
     { title: 'Description', isSearchable: false, isSortable: false },
-    { title: 'Transaction Date', isSearchable: false, isSortable: true },
-    { title: 'Amount', isSearchable: false, isSortable: true },
-    { title: 'Account Name', isSearchable: true, isSortable: true },
-    { title: 'Account Type', isSearchable: true, isSortable: true },
+    {
+      title: 'Transaction Date',
+      isSearchable: false,
+      isSortable: true,
+      stateName: 'created_at',
+      state: sortState['created_at'],
+      setSortState,
+    },
+    {
+      title: 'Amount',
+      isSearchable: false,
+      isSortable: true,
+      stateName: 'debit_amount',
+      state: sortState['debit_amount'],
+      setSortState,
+    },
+    {
+      title: 'Account Name',
+      isSearchable: true,
+      isSortable: true,
+      stateName: 'finance_account_name',
+      state: sortState['finance_account_name'],
+      setSortState,
+    },
+    {
+      title: 'Account Type',
+      isSearchable: true,
+      isSortable: true,
+      stateName: 'finance_account_type',
+      state: sortState['finance_account_type'],
+      setSortState,
+    },
   ];
 
   const [instanceArray, setInstanceArray] = useState([]);
@@ -84,7 +114,7 @@ const Finances = () => {
             item.title,
             item.description,
             moment(item.created_at).format('DD/MM/YYYY'),
-            item.credit_amount,
+            convertToRupiah(item.debit_amount),
             item.finance_account_name,
             item.finance_account_type,
           ];
@@ -131,6 +161,30 @@ const Finances = () => {
     setQuery(newQuery);
   };
 
+  const onClickHeader = (stateName, state) => {
+    const newState = {};
+    console.log(state);
+    if (state === 1) {
+      newState[stateName] = 0;
+    } else if (state === -1) {
+      newState[stateName] = 1;
+    } else {
+      newState[stateName] = -1;
+    }
+    setSortState(newState);
+
+    const newQuery = { ...query };
+    if (newState[stateName] !== 0) {
+      newQuery['sort_field'] = Object.keys(newState)[0];
+      newQuery['sort_type'] = newState[stateName];
+    } else {
+      newQuery['sort_field'] = 'created_at';
+      newQuery['sort_type'] = -1;
+    }
+    console.log(newQuery);
+    setQuery(newQuery);
+  };
+
   return (
     <div className="transactions-page">
       <div className="title">All Finance Transactions</div>
@@ -171,6 +225,7 @@ const Finances = () => {
                 text: { instanceArray },
                 action: { onActionView, onActionEdit, onActionDelete },
               }}
+              onClickHeader={onClickHeader}
             />
             <DeleteDialog
               isOpen={isDeleteDialogOpen}
