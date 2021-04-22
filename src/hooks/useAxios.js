@@ -22,16 +22,24 @@ const useAxios = (config) => {
     setLoading(true);
     axiosInstace(config)
       .then((res) => {
+        setError('');
         setResponse(res.data);
         setLoading(false);
       })
       .catch(function (error) {
         if (error.response) {
-          console.log(error.response);
-          setError(error?.response?.data?.error?.message);
-          enqueueSnackbar(error?.response?.data?.error?.message, {
-            variant: 'error',
-          });
+          if (error.response?.data?.error?.message) {
+            console.log(error.response.data.error.message);
+            setError(error.response.data.error.message);
+            enqueueSnackbar(error.response.data.error.message, {
+              variant: 'error',
+            });
+          } else {
+            setError(error?.response?.data?.message);
+            enqueueSnackbar(error?.response?.data?.message, {
+              variant: 'error',
+            });
+          }
           if (error?.response?.status === 401) {
             Cookie.remove('token');
             ls.remove('data');

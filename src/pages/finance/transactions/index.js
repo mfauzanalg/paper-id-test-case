@@ -12,6 +12,7 @@ import useAxios from '../../../hooks/useAxios';
 import moment from 'moment';
 import qs from 'query-string';
 import { convertToRupiah } from '../../../utils';
+import _ from 'lodash';
 
 const Finances = () => {
   const [sortState, setSortState] = useState({ type: 0 });
@@ -58,7 +59,7 @@ const Finances = () => {
   const [query, setQuery] = useState({
     per_page: 5,
     page: 0,
-    name: '',
+    title: '',
     sort_type: -1,
     sort_field: 'created_at',
   });
@@ -154,12 +155,12 @@ const Finances = () => {
 
   let dialogDataView = financeDialogView(selectedInstance);
 
-  const onSearchBarEnter = (e) => {
+  const onChangeSearch = _.debounce(function (e) {
     const newQuery = { ...query };
-    newQuery['name'] = e.target.value;
+    newQuery['title'] = e.target.value;
     newQuery['page'] = 0;
     setQuery(newQuery);
-  };
+  }, 500);
 
   const onClickHeader = (stateName, state) => {
     const newState = {};
@@ -189,7 +190,7 @@ const Finances = () => {
     <div className="transactions-page">
       <div className="title">All Finance Transactions</div>
       <div className="tools-container">
-        <SearchBar value={query} onEnter={onSearchBarEnter} />
+        <SearchBar value={query} onChange={onChangeSearch} />
         <div className="button-container">
           <Button
             title="Create New Transaction"
@@ -226,6 +227,8 @@ const Finances = () => {
                 action: { onActionView, onActionEdit, onActionDelete },
               }}
               onClickHeader={onClickHeader}
+              query={query}
+              setQuery={setQuery}
             />
             <DeleteDialog
               isOpen={isDeleteDialogOpen}

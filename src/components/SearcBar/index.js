@@ -2,16 +2,10 @@ import React from 'react';
 import './index.scss';
 import { SearchOutline } from 'react-ionicons';
 
-const SearchBar = ({ onEnter }) => {
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      onEnter(e);
-    }
-  };
-
+const SearchBar = ({ onChange }) => {
   return (
     <div className="searcbar-component">
-      <input onKeyPress={onKeyPress} placeholder="Search" />
+      <input onChange={onChange} placeholder="Search" />
       <SearchOutline className="search-icon" width="1.5rem" color="#AABBCA" />
     </div>
   );

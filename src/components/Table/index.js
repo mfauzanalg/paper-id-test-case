@@ -4,8 +4,23 @@ import ActionMenu from '../ActionMenu';
 import { CaretDownOutline } from 'react-ionicons';
 import { CaretUpOutline } from 'react-ionicons';
 import { SwapVerticalOutline } from 'react-ionicons';
+import _ from 'lodash';
 
-const Table = ({ config, data, completeData, onClickHeader }) => {
+const Table = ({
+  config,
+  data,
+  completeData,
+  onClickHeader,
+  query,
+  setQuery,
+}) => {
+  const onChangeTable = _.debounce(function (attribut, value) {
+    const newQuery = { ...query };
+    newQuery[attribut] = value;
+    setQuery(newQuery);
+    console.log(newQuery);
+  }, 500);
+
   return (
     <div className="table-component">
       <table>
@@ -16,13 +31,13 @@ const Table = ({ config, data, completeData, onClickHeader }) => {
                 <th key={index}>
                   <div>
                     {header.isSortable && (
-                      <div
-                        className="clickable"
-                        onClick={() =>
-                          onClickHeader(header.stateName, header.state)
-                        }
-                      >
-                        <span className="title">
+                      <div className="clickable">
+                        <span
+                          className="title"
+                          onClick={() =>
+                            onClickHeader(header.stateName, header.state)
+                          }
+                        >
                           {header.title}
                           {header.state === 1 ? (
                             <CaretUpOutline
@@ -44,12 +59,25 @@ const Table = ({ config, data, completeData, onClickHeader }) => {
                             />
                           )}
                         </span>
-                        {header.isSearchable && <input />}
+                        {header.isSearchable && (
+                          <input
+                            onChange={(e) =>
+                              onChangeTable(header.stateName, e.target.value)
+                            }
+                          />
+                        )}
                       </div>
                     )}
                     {!header.isSortable && (
                       <div>
-                        {header.title} {header.isSearchable && <input />}
+                        {header.title}{' '}
+                        {header.isSearchable && (
+                          <input
+                            onChange={(e) =>
+                              onChangeTable(header.stateName, e.target.value)
+                            }
+                          />
+                        )}
                       </div>
                     )}
                   </div>

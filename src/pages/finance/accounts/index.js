@@ -10,22 +10,10 @@ import DeleteDialog from '../../../components/DeleteDialog';
 import { accountDialogView } from '../../../components/Dialog/AccountDialog';
 import useAxios from '../../../hooks/useAxios';
 import qs from 'query-string';
+import _ from 'lodash';
 
 const Accounts = () => {
   const [sortState, setSortState] = useState({ type: 0 });
-  const tableConfig = [
-    { title: 'Account Name', isSearchable: false, isSortable: false },
-    { title: 'Description', isSearchable: false, isSortable: false },
-    {
-      title: 'Account Type',
-      isSearchable: true,
-      isSortable: true,
-      stateName: 'type',
-      state: sortState['type'],
-      setSortState,
-    },
-  ];
-
   const [instanceArray, setInstanceArray] = useState([]);
   const [isShowTable, setIsShowTable] = useState(false);
   const [selectedInstance, setSelectedInstance] = useState({});
@@ -39,7 +27,26 @@ const Accounts = () => {
     name: '',
     sort_type: -1,
     sort_field: 'created_at',
+    type: '',
   });
+
+  const tableConfig = [
+    {
+      title: 'Account Name',
+      isSearchable: true,
+      isSortable: false,
+      stateName: 'name',
+    },
+    { title: 'Description', isSearchable: false, isSortable: false },
+    {
+      title: 'Account Type',
+      isSearchable: false,
+      isSortable: true,
+      stateName: 'type',
+      state: sortState['type'],
+      setSortState,
+    },
+  ];
 
   const createQueryString = (query) => {
     const newQuery = `/finance-accounts?${qs.stringify(query)}`;
@@ -121,12 +128,12 @@ const Accounts = () => {
 
   let dialogDataView = accountDialogView(selectedInstance);
 
-  const onSearchBarEnter = (e) => {
+  const onChangeSearch = _.debounce(function (e) {
     const newQuery = { ...query };
     newQuery['name'] = e.target.value;
     newQuery['page'] = 0;
     setQuery(newQuery);
-  };
+  }, 500);
 
   const onClickHeader = (stateName, state) => {
     const newState = {};
@@ -154,7 +161,7 @@ const Accounts = () => {
     <div className="accounts-page">
       <div className="title">All Finance Account</div>
       <div className="tools-container">
-        <SearchBar value={query} onEnter={onSearchBarEnter} />
+        <SearchBar value={query} onChange={onChangeSearch} />
         <div className="button-container">
           <Button
             title="Create New Account"
@@ -191,6 +198,8 @@ const Accounts = () => {
                 action: { onActionView, onActionEdit, onActionDelete },
               }}
               onClickHeader={onClickHeader}
+              query={query}
+              setQuery={setQuery}
             />
             <DeleteDialog
               isOpen={isDeleteDialogOpen}

@@ -117,7 +117,7 @@ export const FinanceDialog = ({
       />
       <Select
         label="Finance Account"
-        value={instance['name']}
+        value={instance['finance_account_id']}
         onChange={(e) => onFormChange(e, 'finance_account_id')}
         options={accounts}
       />
