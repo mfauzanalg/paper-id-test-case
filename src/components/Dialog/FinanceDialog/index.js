@@ -91,7 +91,6 @@ export const FinanceDialog = ({
       newInstance[attribut] = e.target.value;
     }
     setInstance(newInstance);
-    console.log(newInstance);
   };
 
   const handleClose = () => {

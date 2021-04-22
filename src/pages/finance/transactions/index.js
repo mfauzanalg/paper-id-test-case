@@ -10,6 +10,7 @@ import DeleteDialog from '../../../components/DeleteDialog';
 import { financeDialogView } from '../../../components/Dialog/FinanceDialog';
 import useAxios from '../../../hooks/useAxios';
 import moment from 'moment';
+import qs from 'query-string';
 
 const Finances = () => {
   const tableConfig = [
@@ -25,14 +26,23 @@ const Finances = () => {
   const [isShowTable, setIsShowTable] = useState(false);
   const [numPage, setNumPage] = useState(0);
   const [query, setQuery] = useState({
-    perPage: 5,
-    currentPage: 0,
+    per_page: 5,
+    page: 0,
     name: '',
-    sortType: -1,
+    sort_type: -1,
+    sort_field: 'created_at',
   });
 
   const createQueryString = (query) => {
-    const newQuery = `/finances?name=${query.name}&sort_field=created_at&sort_type=${query.sortType}&page=${query.currentPage}&per_page=5`;
+    const newQuery = `/finances?${qs.stringify(query)}`;
+    return newQuery;
+  };
+
+  const createQueryStringTotal = (query) => {
+    const { sort_field, sort_type, page, per_page, ...removedParam } = query;
+    const newQuery = `/finances?sort_field=id&sort_type=1&page=-1&per_page=-1&${qs.stringify(
+      removedParam
+    )}`;
     return newQuery;
   };
 
@@ -43,7 +53,7 @@ const Finances = () => {
     fetch: fetchAll,
   } = useAxios({
     method: 'get',
-    url: '/finances?sort_field=created_at&sort_type=1&page=-1&per_page=-1',
+    url: createQueryStringTotal(query),
   });
 
   const {
@@ -79,7 +89,7 @@ const Finances = () => {
             item.finance_account_type,
           ];
         });
-        setNumPage(Math.ceil(responseAll.count / query.perPage));
+        setNumPage(Math.ceil(responseAll.count / query.per_page));
         setInstanceArray(newInstanceArray);
         setIsShowTable(true);
       }
@@ -91,7 +101,6 @@ const Finances = () => {
   }, [selectedInstance]);
 
   useEffect(() => {
-    console.log(query);
     fetchAll();
     fetchPage();
   }, [query]);
@@ -115,11 +124,18 @@ const Finances = () => {
 
   let dialogDataView = financeDialogView(selectedInstance);
 
+  const onSearchBarEnter = (e) => {
+    const newQuery = { ...query };
+    newQuery['name'] = e.target.value;
+    newQuery['page'] = 0;
+    setQuery(newQuery);
+  };
+
   return (
     <div className="transactions-page">
       <div className="title">All Finance Transactions</div>
       <div className="tools-container">
-        <SearchBar />
+        <SearchBar value={query} onEnter={onSearchBarEnter} />
         <div className="button-container">
           <Button
             title="Create New Transaction"

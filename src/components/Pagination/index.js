@@ -5,7 +5,7 @@ import Pagination from '@material-ui/lab/Pagination';
 const PaginationComponent = ({ count, query, setQuery }) => {
   const handleOnChange = (e, page) => {
     const newQuery = { ...query };
-    newQuery['currentPage'] = page - 1;
+    newQuery['page'] = page - 1;
     setQuery(newQuery);
   };
 
@@ -17,6 +17,7 @@ const PaginationComponent = ({ count, query, setQuery }) => {
         siblingCount={1}
         showFirstButton
         showLastButton
+        page={query['page'] + 1}
       />
     </div>
   );
