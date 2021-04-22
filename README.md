@@ -37,11 +37,10 @@ npm run start
 
 ### Feature
 
-1. User Login
+1. User Login, user information and user logout
 
-<div>
   <span><img src="/captures/Capture.PNG" width="700"></span>
-</div>
+  <span><img src="/captures/Capture12.PNG" width="700"></span>
 
 
 2. Dashboard showing daily, past 8 days and monthly, past 8 months expenses
@@ -71,8 +70,13 @@ npm run start
 
   <span><img src="/captures/Capture10.PNG" width="700"></span>
 
-8. You can select some search options by filling the search input
-9. You can select some search options by clicking the sortable value in the table input
+8. You can select some search options by filling the search input and you can do some search options by clicking the sortable value in the table input
+
+  <span><img src="/captures/Capture13.PNG" width="700"></span>
+
+9. Not Found Page
+
+  <span><img src="/captures/Capture14.PNG" width="700"></span>
 
 
 ### Notes
