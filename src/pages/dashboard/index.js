@@ -28,15 +28,10 @@ const Dashboard = () => {
     }
     label.reverse();
 
-    console.log(rawData.length);
-    console.log(label);
-
     rawData.forEach((item) => {
-      console.log(moment(item.created_at).format('MMM YYYY'));
       let i;
       for (i = 0; i < 9; i++) {
         if (moment(item.created_at).format('MMM YYYY') === label[i]) {
-          console.log(i);
           data[i] += item.debit_amount;
         }
       }
