@@ -99,7 +99,7 @@ export const FinanceDialog = ({
 
   const handleOnClick = () => {
     if (
-      instance.finance_account_name &&
+      instance.finance_account_id &&
       instance.title &&
       instance.debit_amount &&
       instance.description

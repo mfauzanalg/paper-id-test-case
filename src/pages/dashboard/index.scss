@@ -18,8 +18,11 @@
     width: 95%;
 
     .chart-container {
-      border: 1px solid red;
       width: 47.5%;
+
+      canvas {
+        margin-bottom: 3rem;
+      }
     }
 
     .account-container {

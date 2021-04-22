@@ -47,7 +47,7 @@ const NavRoute = ({ path, component: Component }) => (
 function App() {
   useEffect(() => {
     const userData = ls.get('data');
-    if (userData) logIn(userData);
+    if (userData) logIn(userData, userData.token, userData.username);
   }, []);
 
   const { logIn } = useContext(UserContext);

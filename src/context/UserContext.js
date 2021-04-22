@@ -26,7 +26,6 @@ export const UserProvider = (props) => {
   };
 
   const logIn = (response, token, username) => {
-    Cookie.set('token', token);
     const userData = {
       isLoggedIn: true,
       lastLogin: moment(response.last_login),
@@ -34,10 +33,7 @@ export const UserProvider = (props) => {
       username: username,
       token,
     };
-    setCurrentUser({
-      ...userData,
-      token: token,
-    });
+    setCurrentUser(userData);
     ls.set('data', userData);
   };
 
