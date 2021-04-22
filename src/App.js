@@ -7,7 +7,6 @@ import dashboard from './pages/dashboard';
 import finance from './pages/finance';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
-import Cookies from 'js-cookie';
 import ls from 'local-storage';
 import { UserContext } from './context/UserContext';
 
@@ -29,9 +28,8 @@ const NavRoute = ({ path, component: Component }) => (
 
 function App() {
   useEffect(() => {
-    const token = Cookies.get('token');
     const userData = ls.get('data');
-    if (token && userData) logIn(userData, token);
+    if (userData) logIn(userData);
   }, []);
 
   const { logIn } = useContext(UserContext);

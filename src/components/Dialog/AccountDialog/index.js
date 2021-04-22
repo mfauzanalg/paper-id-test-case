@@ -70,10 +70,16 @@ export const AccountDialog = ({
   };
 
   const handleOnClick = () => {
-    if (action === 'create') {
-      fetchCreate();
+    if (instance.name && instance.type && instance.Description) {
+      if (action === 'create') {
+        fetchCreate();
+      } else {
+        fetchUpdate();
+      }
     } else {
-      fetchUpdate();
+      enqueueSnackbar('Please fill all form!', {
+        variant: 'warning',
+      });
     }
   };
 

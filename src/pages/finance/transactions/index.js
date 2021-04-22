@@ -164,7 +164,6 @@ const Finances = () => {
 
   const onClickHeader = (stateName, state) => {
     const newState = {};
-    console.log(state);
     if (state === 1) {
       newState[stateName] = 0;
     } else if (state === -1) {
@@ -182,7 +181,6 @@ const Finances = () => {
       newQuery['sort_field'] = 'created_at';
       newQuery['sort_type'] = -1;
     }
-    console.log(newQuery);
     setQuery(newQuery);
   };
 

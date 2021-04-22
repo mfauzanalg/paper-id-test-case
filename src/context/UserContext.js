@@ -32,6 +32,7 @@ export const UserProvider = (props) => {
       lastLogin: moment(response.last_login),
       name: response.name,
       username: username,
+      token,
     };
     setCurrentUser({
       ...userData,

@@ -98,10 +98,21 @@ export const FinanceDialog = ({
   };
 
   const handleOnClick = () => {
-    if (action === 'create') {
-      fetchCreate();
+    if (
+      instance.finance_account_name &&
+      instance.title &&
+      instance.debit_amount &&
+      instance.description
+    ) {
+      if (action === 'create') {
+        fetchCreate();
+      } else {
+        fetchUpdate();
+      }
     } else {
-      fetchUpdate();
+      enqueueSnackbar('Please fill all form!', {
+        variant: 'warning',
+      });
     }
   };
 
